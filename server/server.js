@@ -7,8 +7,7 @@ const rateLimit = require('express-rate-limit');
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getAuth } = require('firebase-admin/auth');
 const fs = require('fs');
-const serviceAccountPath = path.resolve(__dirname, '..', process.env.FIREBASE_SERVICE_ACCOUNT);
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+const serviceAccount = JSON.parse(process.env.FIREBASE_KEY_JSON);
 
 
 initializeApp({
