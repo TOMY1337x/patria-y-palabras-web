@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="assets/css/libros_style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gorditas:wght@700&display=swap" rel="stylesheet">
+    <title>Patria y Palabras</title>
+</head>
+<body>
+    <div class="nav-wrapper">
+        <nav class="nav">
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li class="dropdown">
+                        <a href="#" class="link dropdown-toggle">Libros <i class='bx bx-chevron-down'></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="libros.html?categoria=arte">Arte</a></li>
+                            <li><a href="libros.html?categoria=biografias">Biografías</a></li>
+                            <li><a href="libros.html?categoria=ciencia-ficcion">Ciencia Ficción</a></li>
+                            <li><a href="libros.html?categoria=cuentos">Cuentos</a></li>
+                            <li><a href="libros.html?categoria=infantil">Infantil</a></li>
+                            <li><a href="libros.html?categoria=juvenil">Juvenil</a></li>
+                            <li class="dropdown-submenu">
+                                <a href="#" class="submenu-toggle">Libros de Estudio ▸</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="libros.html?categoria=primario">Primario</a></li>
+                                    <li><a href="libros.html?categoria=secundario">Secundario</a></li>
+                                    <li><a href="libros.html?categoria=universitario">Universitario</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="libros.html?categoria=musica">Música</a></li>
+                            <li><a href="libros.html?categoria=novela">Novela</a></li>
+                            <li><a href="libros.html?categoria=poesia">Poesía</a></li>
+                            <li class="dropdown-submenu">
+                                <a href="#" class="submenu-toggle">Religión y Cultura ▸</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="libros.html?categoria=cultura">Cultura</a></li>
+                                    <li><a href="libros.html?categoria=filosofia">Filosofía</a></li>
+                                    <li><a href="libros.html?categoria=historia">Historia</a></li>
+                                    <li><a href="libros.html?categoria=psicologia">Psicología</a></li>
+                                    <li><a href="libros.html?categoria=religion">Religión</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="libros.html?categoria=teatro">Teatro</a></li>
+                            <li><a href="libros.html?categoria=ensayos">Ensayos</a></li>
+                        </ul>
+                    </li>    
+                    <li><a href="index.html" class="link">Inicio</a></li>
+                    <li><a href="new.html" class="link">Novedades</a></li>                
+                    <li><a href="nosotros.html" class="link">Nosotras</a></li>
+                    <li><a href="contacto.html" class="link">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-menu-btn" id="menuBtn">
+                <i class='bx bx-menu'></i>
+            </div>
+            <div class="nav-right-container">
+                <div class="nav-phrase">
+                    Envíos gratis en Concepción del Uruguay, Colón y Villa Elisa ❤️
+                </div>
+                <div class="search-container">
+                    <div class="search-bar">
+                        <input type="text" id="search-input" placeholder="Buscar libros">
+                        <button id="search-button"><i class='bx bx-search'></i></button>
+                    </div>
+                </div>
+            </div>
+        
+        <div class="nav-center-phrase">
+            PATRIA Y PALABRAS
+        </div>
+        </nav>
+    </div>
+    <h2 id="titulo-categoria" class="titulo-categoria"></h2>
+    <div id="libros-container" class="libros-grid"></div>
+    <div class="libros-categorias">
+            <h2>Explora nuestras categorías</h2>
+            <div class="categoria-container">
+                <div class="categoria-item">
+                    <h3>Ciencia Ficción</h3>
+                    <div class="libros-miniatura" data-categoria="ciencia-ficcion"></div>
+                    <a href="libros.html?categoria=ciencia-ficcion" class="ver-mas">Ver todos</a>
+                </div>
+        
+                <div class="categoria-item">
+                    <h3>Infantil</h3>
+                    <div class="libros-miniatura" data-categoria="infantil"></div>
+                    <a href="libros.html?categoria=infantil" class="ver-mas">Ver todos</a>
+                </div>
+        
+                <div class="categoria-item">
+                    <h3>Juvenil</h3>
+                    <div class="libros-miniatura" data-categoria="juvenil"></div>
+                    <a href="libros.html?categoria=juvenil" class="ver-mas">Ver todos</a>
+                </div>
+            
+                <div class="categoria-item">
+                    <h3>Libros de Primaria</h3>
+                    <div class="libros-miniatura" data-categoria="primario"></div>
+                    <a href="libros.html?categoria=primario" class="ver-mas">Ver todos</a>
+                </div>
+
+                <div class="categoria-item">
+                    <h3>Libros de Secundaria</h3>
+                    <div class="libros-miniatura" data-categoria="secundario"></div>
+                    <a href="libros.html?categoria=secundario" class="ver-mas">Ver todos</a>
+                </div>
+
+                <div class="categoria-item">
+                    <h3>Libros Universitarios</h3>
+                    <div class="libros-miniatura" data-categoria="universitario"></div>
+                    <a href="libros.html?categoria=universitario" class="ver-mas">Ver todos</a>
+                </div>
+
+                <div class="categoria-item">
+                    <h3>Novela</h3>
+                    <div class="libros-miniatura" data-categoria="novela"></div>
+                    <a href="libros.html?categoria=novela" class="ver-mas">Ver todos</a>
+                </div>
+
+                <div class="categoria-item">
+                    <h3>Arte</h3>
+                    <div class="libros-miniatura" data-categoria="arte"></div>
+                    <a href="libros.html?categoria=arte" class="ver-mas">Ver todos</a>
+                </div>
+
+                <div class="categoria-item">
+                    <h3>Música</h3>
+                    <div class="libros-miniatura" data-categoria="musica"></div>
+                    <a href="libros.html?categoria=musica" class="ver-mas">Ver todos</a>
+                </div>
+
+                <div class="categoria-item">
+                    <h3>Poesía</h3>
+                    <div class="libros-miniatura" data-categoria="poesia"></div>
+                    <a href="libros.html?categoria=poesia" class="ver-mas">Ver todos</a>
+                </div>
+                
+                <div class="categoria-item">
+                    <h3>Cultura</h3>
+                    <div class="libros-miniatura" data-categoria="cultura"></div>
+                    <a href="libros.html?categoria=cultura" class="ver-mas">Ver todos</a>
+                </div>
+
+                <div class="categoria-item">
+                    <h3>Religión</h3>
+                    <div class="libros-miniatura" data-categoria="religion"></div>
+                    <a href="libros.html?categoria=religion" class="ver-mas">Ver todos</a>
+                </div>
+
+                <div class="categoria-item">
+                    <h3>Filosofía</h3>
+                    <div class="libros-miniatura" data-categoria="filosofia"></div>
+                    <a href="libros.html?categoria=filosofia" class="ver-mas">Ver todos</a>
+                </div>
+
+                <div class="categoria-item">
+                    <h3>Historia</h3>
+                    <div class="libros-miniatura" data-categoria="historia"></div>
+                    <a href="libros.html?categoria=historia" class="ver-mas">Ver todos</a>
+                </div>
+        
+                <div class="categoria-item">
+                    <h3>Cuentos</h3>
+                    <div class="libros-miniatura" data-categoria="cuentos"></div>
+                    <a href="libros.html?categoria=cuentos" class="ver-mas">Ver todos</a>
+                </div>
+        
+                <div class="categoria-item">
+                    <h3>Teatro</h3>
+                    <div class="libros-miniatura" data-categoria="teatro"></div>
+                    <a href="libros.html?categoria=teatro" class="ver-mas">Ver todos</a>
+                </div>
+
+                <div class="categoria-item">
+                    <h3>Ensayos</h3>
+                    <div class="libros-miniatura" data-categoria="ensayos"></div>
+                    <a href="libros.html?categoria=ensayos" class="ver-mas">Ver todos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="imageModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-content">
+            <div class="zoom-container">
+                <img id="modalImage" class="modal-content-img">
+                <div class="zoom-lens"></div>
+            </div>
+            <div class="zoom-preview"></div>
+            <div id="caption"></div>
+            <div class="modal-nav">
+                <button class="modal-nav-btn prev">❮</button>
+                <button class="modal-nav-btn next">❯</button>
+            </div>
+        </div>
+    </div>
+    <div id="carouselModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <div class="carousel-container">
+            <button class="carousel-button prev">&#10094;</button>
+            <div class="carousel-slides" id="carouselSlides"></div>
+            <button class="carousel-button next">&#10095;</button>
+        </div>
+        <div class="carousel-indicators" id="carouselIndicators"></div>
+        <div id="carouselCaption"></div>
+    </div>
+    <script type="module" src="../firebase/firebase-config.js"></script>
+    <script type="module" src="../firebase/firebase-auth.js"></script>
+    <script type="module" src="assets/js/libros.js"></script>
+    <script src="assets/js/submenu_function.js" defer></script>
+</body>
+</html>
