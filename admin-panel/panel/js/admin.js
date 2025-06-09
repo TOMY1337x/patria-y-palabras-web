@@ -18,6 +18,11 @@ const mensaje = document.getElementById('mensaje');
 const listaLibros = document.getElementById('lista-libros');
 const nombreArchivo = document.getElementById('nombre-archivo');
 const btnGuardar = document.querySelector('#libro-form button[type="submit"]');
+const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const backendBaseUrl = isLocalhost
+  ? 'http://localhost:3001'
+  : 'https://patriaypalabras-backend.onrender.com';  // reemplazá con tu URL real en Render
+
 let libroEditando = null;
 
 let cloudinaryWidget;
@@ -35,9 +40,7 @@ async function initializeCloudinary() {
     }
     
     const token = await user.getIdToken();
-    const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-      ? 'http://localhost:3001/api/cloudinary-config'
-      : '/api/cloudinary-config';
+    const apiUrl = `${backendBaseUrl}/api/cloudinary-config`;
 
     console.log('Solicitando configuración a:', apiUrl); 
     
@@ -151,12 +154,7 @@ async function eliminarImagen(index) {
     }
 
     const token = await getAuthToken();
-    const isLocalhost = window.location.hostname === 'localhost' || 
-                       window.location.hostname === '127.0.0.1';
-    
-    const apiUrl = isLocalhost
-      ? 'http://localhost:3001/api/eliminar-imagenes'
-      : '/api/eliminar-imagenes';
+    const apiUrl = `${backendBaseUrl}/api/eliminar-imagenes`;
 
     console.log('Enviando solicitud a:', apiUrl); 
     
@@ -212,12 +210,7 @@ async function asignarRolAdmin() {
     if (!user) return;
 
     const token = await user.getIdToken();
-    const isLocalhost = window.location.hostname === 'localhost' || 
-                       window.location.hostname === '127.0.0.1';
-    
-    const apiUrl = isLocalhost
-      ? 'http://localhost:3001/api/assign-admin'
-      : '/api/assign-admin';
+    const apiUrl = `${backendBaseUrl}/api/assign-admin`;
 
     console.log('Enviando petición a:', apiUrl);
     
@@ -558,7 +551,7 @@ window.eliminarLibro = async function(id) {
     ].filter(Boolean);
 
     if (publicIds.length > 0) {
-      const response = await fetch('http://localhost:3001/api/eliminar-imagenes', {
+      const response = await fetch(`${backendBaseUrl}/api/eliminar-imagenes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -570,7 +563,7 @@ window.eliminarLibro = async function(id) {
       if (!response.ok) throw new Error('Error al eliminar imágenes');
     }
 
-    const deleteResponse = await fetch('http://localhost:3001/api/eliminar-libro', {
+    const deleteResponse = await fetch(`${backendBaseUrl}/api/eliminar-libro`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
