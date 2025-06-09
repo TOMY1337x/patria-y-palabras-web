@@ -1,5 +1,5 @@
-import { app } from '../../../firebase/firebase-config.js';
-import { auth, onAuthStateChanged, signOut } from '../../../firebase/firebase-auth.js';
+import { app } from '../../../../firebase/firebase-config.js';
+import { auth, onAuthStateChanged, signOut } from '../../../../firebase/firebase-auth.js';
 import { 
   getFirestore, 
   collection, 

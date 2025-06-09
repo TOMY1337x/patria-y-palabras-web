@@ -37,29 +37,35 @@ requiredEnvVars.forEach(variable => {
   }
 });
 
+const allowedOrigins = process.env.ADMIN_FRONTEND_URL.split(',').map(o => o.trim());
+
 const dynamicCors = (req, callback) => {
   let corsOptions;
 
-  if (req.path.startsWith('/api/firebase-client-config') || 
-      req.path.startsWith('/health')) {
+  if (req.path.startsWith('/api/firebase-client-config') || req.path.startsWith('/health')) {
     corsOptions = { 
       origin: true, 
       methods: ['GET', 'OPTIONS'],
       optionsSuccessStatus: 200
     };
-  } 
-  else {
+  } else {
     corsOptions = {
-      origin: process.env.ADMIN_FRONTEND_URL,
+      origin: (origin, cb) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+          cb(null, true);
+        } else {
+          cb(new Error('No permitido por CORS'));
+        }
+      },
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization'],
       credentials: true,
       optionsSuccessStatus: 200
     };
   }
-  
   callback(null, corsOptions);
 };
+
 
 app.use(cors(dynamicCors));
 app.options('*', cors(dynamicCors));
