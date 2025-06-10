@@ -30,5 +30,3 @@ window.firebaseData = {
   firestore: { collection, query, where, orderBy, limit, getDocs },
   auth
 };
-
-console.log("Firebase configurado correctamente");

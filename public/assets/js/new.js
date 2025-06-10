@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         await new Promise((resolve, reject) => {
             const checkInitialization = () => {
                 if (window.firebaseData && window.firebaseData.db && window.firebaseData.firestore) {
-                    console.log("Firebase inicializado correctamente");
                     resolve();
                 } else if (timeWaited >= MAX_WAIT_TIME) {
                     reject(new Error("Tiempo de espera agotado. Firebase no se inicializó."));
