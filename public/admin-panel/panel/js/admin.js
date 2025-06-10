@@ -237,6 +237,7 @@ async function asignarRolAdmin() {
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     console.log('Redirigiendo a login - No hay usuario');
+    debugger;
     window.location.href = "../login/login.html";
     return;
   }
