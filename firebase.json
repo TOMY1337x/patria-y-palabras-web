@@ -5,6 +5,12 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/admin-panel/**",
+        "destination": "/admin-panel/login/login.html"
+      }
     ]
   }
 }

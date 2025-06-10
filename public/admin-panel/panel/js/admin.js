@@ -245,12 +245,7 @@ onAuthStateChanged(auth, async (user) => {
     console.log('Usuario autenticado:', user.email);
     const token = await user.getIdToken();
     
-    const isLocalhost = window.location.hostname === 'localhost' || 
-                   window.location.hostname === '127.0.0.1';
-
-    const apiUrl = isLocalhost
-      ? 'http://localhost:3001/api/verify-admin'
-      : '/api/verify-admin';
+    const apiUrl = `${backendBaseUrl}/api/verify-admin`;
     
     console.log('Verificando admin en:', apiUrl);
     const response = await fetch(apiUrl, {
