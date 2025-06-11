@@ -310,16 +310,15 @@ body {
     body {
         padding-top: 70px;
         grid-template-rows: 30vh 35vh 35vh;
-        overflow-x: hidden; /* Previene scroll horizontal */
+        overflow-x: hidden; 
     }
 
     .dropdown {
         position: relative;
         display: inline-block;
-        margin: 0 auto; /* Centrado horizontal */
+        margin: 0 auto; 
     }
 
-    /* Botón toggle */
     .dropdown-toggle {
         padding: 8px 10px;
         font-size: 12px;
@@ -333,7 +332,6 @@ body {
         justify-content: space-between;
     }
 
-    /* Flecha indicadora */
     .dropdown-toggle::after {
         content: "▼";
         font-size: 8px;
@@ -345,7 +343,6 @@ body {
         transform: rotate(180deg);
     }
 
-    /* Menú desplegable */
     .dropdown-menu {
         display: none;
         position: absolute;
@@ -368,7 +365,6 @@ body {
         animation: slideDown 0.2s ease;
     }
 
-    /* Items del menú */
     .dropdown-menu li {
         padding: 6px 8px;
         line-height: 1.2;
@@ -382,12 +378,10 @@ body {
         white-space: nowrap;
     }
 
-    /* Efecto hover */
     .dropdown-menu li:hover {
         background: rgba(252, 166, 247, 0.2);
     }
 
-    /* Scrollbar personalizada */
     .dropdown-menu::-webkit-scrollbar {
         width: 4px;
     }
@@ -397,7 +391,6 @@ body {
         border-radius: 2px;
     }
 
-    /* Animación */
     @keyframes slideDown {
         from {
             opacity: 0;
@@ -414,7 +407,6 @@ body {
         to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Asegurar que el menú no se solape con otros elementos */
     .nav-menu.active ~ .dropdown-menu {
         top: calc(100% + 50px);
     }
@@ -439,7 +431,6 @@ body {
         margin-top: 1px; 
     }
     
-    /* Menu mobile */
     .nav-menu {
         display: none;
         position: absolute;
@@ -451,7 +442,7 @@ body {
         align-items: center;
         padding: 15px 0;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        z-index: 1000; /* Asegura que esté por encima */
+        z-index: 1000; 
     }
 
     .nav-menu.active {
@@ -501,14 +492,12 @@ body {
         box-sizing: border-box;
     }
     
-    /* Ajustes específicos para cada box */
     .box1, .box5 {
         padding: 8px;
         box-sizing: border-box;
         overflow: hidden;
     }
     
-    /* Box2 - Primer cuadro de color (Visión) */
     .box2 {
         padding: 8px;
         display: flex;
@@ -518,7 +507,7 @@ body {
         text-align: center;
         overflow: hidden;
         box-sizing: border-box;
-        margin-top: -10px;       /* Sube el fondo 10px hacia arriba */
+        margin-top: -10px;       
         padding-top: 18px; 
     }
     
@@ -530,21 +519,21 @@ body {
     }
     
     .box2 p {
-        font-size: 10px; /* Aumenté ligeramente el tamaño */
-        line-height: 1.3; /* Aumenté el line-height para mejor legibilidad */
+        font-size: 10px; 
+        line-height: 1.3; 
         max-width: 100%;
         width: 100%;
         word-wrap: break-word;
         hyphens: auto;
         text-align: justify;
-        overflow: visible; /* Cambiado de hidden a visible */
+        overflow: visible; 
         margin: 0;
         box-sizing: border-box;
         display: block;
-        padding: 0 2px; /* Pequeño padding lateral */
+        padding: 0 2px; 
     }
     
-    /* Box3 - Área central completa */
+  
     .box3 {
         padding: 10px;
         display: flex;
@@ -576,13 +565,13 @@ body {
     }
     
     .box4 {
-        padding: 8px; /* Aumenté el padding para mejor espaciado */
+        padding: 8px; 
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
         text-align: center;
-        overflow: auto; /* Cambiado de hidden a auto para permitir scroll si es necesario */
+        overflow: auto; 
         box-sizing: border-box;
         height: 100%;
         min-height: 35vh;
@@ -596,18 +585,18 @@ body {
     }
 
     .box4 p {
-        font-size: 10px; /* Aumenté ligeramente el tamaño */
-        line-height: 1.3; /* Aumenté el line-height para mejor legibilidad */
+        font-size: 10px; 
+        line-height: 1.3; 
         max-width: 100%;
         width: 100%;
         word-wrap: break-word;
         hyphens: auto;
         text-align: justify;
-        overflow: visible; /* Cambiado de hidden a visible */
+        overflow: visible; 
         margin: 0;
         box-sizing: border-box;
         display: block;
-        padding: 0 2px; /* Pequeño padding lateral */
+        padding: 0 2px; 
     }
 }
 
