@@ -231,40 +231,6 @@ body {
     visibility: visible;
 }
 
-@media (max-width: 768px) {
-    .nav-menu {
-        display: none;
-        position: absolute;
-        top: 100px;
-        left: 0;
-        width: 100%;
-        background: rgba(39, 39, 39, 0.9);
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .nav-menu.active {
-        display: flex;
-    }
-
-    .nav-menu ul {
-        flex-direction: column;
-    }
-
-    .nav-menu ul li {
-        margin: 10px 0;
-    }
-
-    .nav-menu-btn {
-        display: block;
-        cursor: pointer;
-    }
-
-    .nav-button {
-        display: none;
-    }
-}
-
 .background-grid {
     position: fixed;
     top: 0;
@@ -339,3 +305,309 @@ body {
     font-size: 16px;
     color: black;
 }
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px;
+        grid-template-rows: 30vh 35vh 35vh;
+        overflow-x: hidden; /* Previene scroll horizontal */
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+        margin: 0 auto; /* Centrado horizontal */
+    }
+
+    /* Botón toggle */
+    .dropdown-toggle {
+        padding: 8px 10px;
+        font-size: 12px;
+        min-width: 100px;
+        background: rgba(252, 166, 247, 0.9);
+        border: none;
+        border-radius: 4px;
+        color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    /* Flecha indicadora */
+    .dropdown-toggle::after {
+        content: "▼";
+        font-size: 8px;
+        margin-left: 5px;
+        transition: transform 0.2s;
+    }
+
+    .dropdown-toggle.active::after {
+        transform: rotate(180deg);
+    }
+
+    /* Menú desplegable */
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: auto;
+        min-width: 120px;
+        max-height: 50vh;
+        overflow-y: auto;
+        background: rgba(252, 166, 247, 0.9);
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        z-index: 1001;
+        padding: 4px 0;
+        border: 1px solid #f0f0f0;
+    }
+
+    .dropdown-menu.active {
+        display: block;
+        animation: slideDown 0.2s ease;
+    }
+
+    /* Items del menú */
+    .dropdown-menu li {
+        padding: 6px 8px;
+        line-height: 1.2;
+    }
+
+    .dropdown-menu li .link {
+        font-size: 11px;
+        color: #333;
+        text-decoration: none;
+        display: block;
+        white-space: nowrap;
+    }
+
+    /* Efecto hover */
+    .dropdown-menu li:hover {
+        background: rgba(252, 166, 247, 0.2);
+    }
+
+    /* Scrollbar personalizada */
+    .dropdown-menu::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .dropdown-menu::-webkit-scrollbar-thumb {
+        background: rgba(252, 166, 247, 0.5);
+        border-radius: 2px;
+    }
+
+    /* Animación */
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-5px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Asegurar que el menú no se solape con otros elementos */
+    .nav-menu.active ~ .dropdown-menu {
+        top: calc(100% + 50px);
+    }
+    
+    .nav {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+    }
+    
+    .nav-phrase {
+        font-size: clamp(8px, 2.5vw, 14px);
+        margin-left: 0;
+        order: 3;
+        width: 100%;
+        text-align: center;
+        margin-top: 8px;
+    }
+    
+    .nav-center-phrase {
+        font-size: 1.2rem;
+        padding: 0 10px;
+        margin-top: 1px; 
+    }
+    
+    /* Menu mobile */
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(252, 166, 247, 0.95);
+        flex-direction: column;
+        align-items: center;
+        padding: 15px 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 1000; /* Asegura que esté por encima */
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-menu ul li {
+        margin: 8px 0;
+        width: 100%;
+        text-align: center;
+        list-style: none;
+    }
+    
+    .nav-menu ul li .link {
+        margin: 0;
+        padding: 8px 15px;
+        display: block;
+        width: 100%;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    .nav-menu-btn {
+        display: block;
+        cursor: pointer;
+        order: 2;
+    }
+
+    .nav-button {
+        display: none;
+    }
+    
+    .background-grid {
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 30vh 35vh 35vh;
+        top: 70px;
+        height: calc(100vh - 70px);
+        width: 100%;
+        max-width: 100vw; 
+        box-sizing: border-box;
+    }
+    
+    /* Ajustes específicos para cada box */
+    .box1, .box5 {
+        padding: 8px;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    
+    /* Box2 - Primer cuadro de color (Visión) */
+    .box2 {
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+        box-sizing: border-box;
+        margin-top: -10px;       /* Sube el fondo 10px hacia arriba */
+        padding-top: 18px; 
+    }
+    
+    .box2 h2 {
+        font-size: 16px;
+        margin-bottom: 4px;
+        font-weight: bold;
+        margin-top: 0;
+    }
+    
+    .box2 p {
+        font-size: 10px; /* Aumenté ligeramente el tamaño */
+        line-height: 1.3; /* Aumenté el line-height para mejor legibilidad */
+        max-width: 100%;
+        width: 100%;
+        word-wrap: break-word;
+        hyphens: auto;
+        text-align: justify;
+        overflow: visible; /* Cambiado de hidden a visible */
+        margin: 0;
+        box-sizing: border-box;
+        display: block;
+        padding: 0 2px; /* Pequeño padding lateral */
+    }
+    
+    /* Box3 - Área central completa */
+    .box3 {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+    
+    .box3 h2 {
+        font-size: 16px;
+        margin-bottom: 6px;
+        margin-top: 0;
+        font-weight: bold;
+    }
+    
+    .box3 p {
+        font-size: 11px;
+        line-height: 1.3;
+        max-width: 100%;
+        width: 100%;
+        word-wrap: break-word;
+        hyphens: auto;
+        text-align: justify;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    
+    .box4 {
+        padding: 8px; /* Aumenté el padding para mejor espaciado */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: center;
+        overflow: auto; /* Cambiado de hidden a auto para permitir scroll si es necesario */
+        box-sizing: border-box;
+        height: 100%;
+        min-height: 35vh;
+    }
+
+    .box4 h2 {
+        font-size: 15px;
+        margin-bottom: 3px;
+        margin-top: 0;
+        font-weight: bold;
+    }
+
+    .box4 p {
+        font-size: 10px; /* Aumenté ligeramente el tamaño */
+        line-height: 1.3; /* Aumenté el line-height para mejor legibilidad */
+        max-width: 100%;
+        width: 100%;
+        word-wrap: break-word;
+        hyphens: auto;
+        text-align: justify;
+        overflow: visible; /* Cambiado de hidden a visible */
+        margin: 0;
+        box-sizing: border-box;
+        display: block;
+        padding: 0 2px; /* Pequeño padding lateral */
+    }
+}
+
