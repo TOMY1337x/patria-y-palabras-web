@@ -255,7 +255,7 @@ body {
 }
 
 .box1 {
-    background: url('../../images/manolito.jpg') no-repeat center center/contain;
+    background: url('../../images/guille.jpg') no-repeat center center/contain;
     grid-column: 1 / 2;
     grid-row: 1 / 2;
 }
