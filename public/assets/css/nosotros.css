@@ -308,7 +308,7 @@ body {
 
 @media (max-width: 768px) {
     body {
-        padding-top: 50px;
+        padding-top: 60px;
         grid-template-rows: 30vh 35vh 35vh;
         overflow-x: hidden; 
     }
