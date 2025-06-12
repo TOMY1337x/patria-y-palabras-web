@@ -586,3 +586,31 @@ body {
     }
 }
 
+
+@media (min-width: 769px) and (max-width: 1366px) {
+
+    body {
+        padding-top: 10px !important; 
+        margin-top: 10px !important;
+    }
+
+    .nav-menu ul {
+        gap: 2px; 
+    }
+
+    .nav-menu ul li .link {
+        margin: 0 4px; 
+        padding: 4px 6px; 
+    }
+
+    .nav-phrase {
+        font-size: 1.2vw;    
+    }
+
+    .nav-menu ul li .link::after {
+        bottom: 2px; 
+        height: 2px; 
+    }
+
+    
+}
