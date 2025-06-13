@@ -496,22 +496,15 @@ body {
     }
 
     .imagen-flotante {
-        position: relative;
-        width: 100%;
-        max-width: 300px;
-        top: auto;
-        right: auto;
-        transform: none;
-        margin: 90px auto;
-        display: block;
+        display: none;
     }
 
     .pyp-log {
         position: relative;
         width: 80%;
         max-width: 250px;
-        top: auto;
-        left: auto;
+        top: 50px;
+        left: -10px;
         transform: none;
         margin: 20px auto;
         display: block;
@@ -573,6 +566,73 @@ body {
     }
 }
 
+@media (min-width: 769px) and (max-width: 1366px) {
 
+    body {
+        padding-top: 10px !important; 
+        margin-top: 10px !important;
+    }
+
+    .nav-menu ul {
+        gap: 2px; 
+    }
+
+    .nav-menu ul li .link {
+        margin: 0 4px; 
+        padding: 4px 6px; 
+    }
+
+    .nav-phrase {
+        font-size: 1.2vw;    
+    }
+
+    .nav-menu ul li .link::after {
+        bottom: 2px; 
+        height: 2px; 
+    }
+
+    .dropdown-menu {
+        margin-top: 10px !important;
+        left: -18px !important;
+    }
+
+    .dropdown-submenu .dropdown-menu {
+        min-width: 160px !important;
+        margin-left: 0 !important;
+        left: 100% !important;
+        top: -5px !important;
+    }
+
+    .pyp-log{
+        top: 200px;
+        left: -45px;
+    }
+
+    .imagen-flotante{
+        width: 35%;
+        top: 270px;
+    }
+
+    .recuadros-container {
+        width: 90%; 
+        margin-left: -35%; 
+        margin-right: 5%; 
+        transform: none !important; 
+    }
+
+    .recuadro {
+        width: 35%; 
+        max-width: 240px; 
+        padding: 15px; 
+    }
+
+    .texto-contacto h2 {
+        font-size: 34px !important; 
+    }
+    .texto-contacto p {
+        font-size: 20px !important; 
+    }
+        
+}
 
 
