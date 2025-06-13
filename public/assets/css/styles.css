@@ -526,7 +526,8 @@ body {
     }
 
     .gradient-background {
-        height: 60vh; 
+        height: 220vh; 
+        position: fixed;
     }
 
     .nav-wrapper {
