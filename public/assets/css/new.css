@@ -128,45 +128,6 @@ body {
     display: none;
 }
 
-@media (max-width: 768px) {
-    .nav-menu {
-        display: none;
-        position: absolute;
-        top: 100px;
-        left: 0;
-        width: 100%;
-        background: rgba(39, 39, 39, 0.9);
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .nav-menu.active {
-        display: flex;
-    }
-
-    .nav-menu ul {
-        flex-direction: column;
-    }
-
-    .nav-menu ul li {
-        margin: 10px 0;
-    }
-
-    .nav-menu-btn {
-        display: block;
-        cursor: pointer;
-    }
-
-    .nav-button {
-        display: none;
-    }
-}
-
-
-@media (max-width: 768px) {
-    
-}
-
 .dropdown {
     position: relative;
 }
@@ -442,25 +403,271 @@ body {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-    .libros-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 20px;
+    body {
+        padding-top: calc(80px + env(safe-area-inset-top));
     }
-    
-    .novedades-header h1 {
+
+    .nav-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background: #007900;
+        backdrop-filter: blur(5px);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  
+        padding: 0;
+        height: auto;
+    }
+
+    .nav {
+        display: flex;
+        flex-direction: column; 
+        align-items: center;
+        padding: 10px 15px;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .nav-logo img {
+        height: 70px; 
+        width: auto;
+    }
+
+
+    .nav-center-phrase {
+        font-size: 1rem; 
+        position: static;
+        transform: none;
+        margin: 2px 0;
+        color: white;
+        order: 1;
+    }
+
+
+    .nav-phrase{
+        font-size: 3.1vw; 
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: 2px 0;
+        padding: 0 2px; 
+        color: #f8f8f8f5;
+        font-weight: bold;
+        line-height: 1.3;
+        order: 2;
+    }
+
+    .nav-menu {
+        display: flex;
+        width: 100%;
+        background: transparent;
+        margin-top: 3px;
+        justify-content: center;
+        padding: 0; 
+    }
+
+    .nav-menu ul {
+        display: flex;
+        flex-direction: row; 
+        width: auto;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        gap: 2px;
+    }
+
+    .nav-menu ul li {
+        margin: 0;
+        position: relative;  
+        padding: 0; 
+    }
+
+    .nav-menu ul li .link {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        text-decoration: none;
+        font-weight: 500;
+        color: #fff;
+        padding: 4px 3px; 
+        font-size: 13px; 
+        display: block;
+        border-radius: 5px;
+        transition: all 0.2s ease;;
+        white-space: nowrap; 
+        margin: 0 12px;
+        position: relative;
+    }
+
+    .nav-menu ul li .link:hover {
+        background: #007900;
+    }
+
+    .nav-menu ul li .link::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -2px; 
+        width: 0;
+        height: 2px;
+        transition: width 0.3s ease;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        left: 0;
+        top: 200%;
+        min-width: 120px;
+        width: auto;
+        background: #007900;
+        border-radius: 0 4px 4px 4px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        padding: 8px 0 !important;       
+        border: 1px solid #007900; 
+        z-index: 1001;
+        display: none;
+    }
+
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-menu li {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .dropdown-menu li a {
+        padding: 4px 8px !important;     
+        font-size: 13px !important;      
+        line-height: 2 !important;       
+        margin: -2px 0 !important; 
+    }
+
+    .dropdown-menu li a:hover {
+        background: #007900;
+    }
+
+    .dropdown-submenu .dropdown-menu {
+        left: 100%;
+        top: 0; 
+        min-width: 100px; 
+    }
+
+    .nav-menu-btn,
+    .nav-button {
+        display: none !important;
+    }
+
+
+    #libros-container.libros-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        padding: 1rem;
+        width: calc(100% - 2rem); 
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    .libros-categorias {
+        padding: 2rem 1rem; 
+    }
+
+    .categoria-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem; 
+        padding: 0 1rem; 
+    }
+
+    .categoria-item {
+        padding: 1rem; 
+        min-height: auto; 
+    }
+
+    .libros-miniatura {
+        min-height: 120px; 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+
+    .libro {
+        width: 100%;
+        margin: 0;
+        max-width: none; 
+    }
+
+    .libro-imagenes-container {
+        height: 180px; 
+    }
+
+    .imagen-principal {
+        height: 180px;
+        object-fit: contain; 
+    }
+
+    .modal-content {
+        flex-direction: column;
+        padding: 10px;
+        gap: 10px;
+        max-width: 100%;
+    }
+
+    .modal-content-img {
+        min-width: unset;
+        min-height: unset;
+        max-width: 100%;
+        max-height: 60vh;
+    }
+
+    .modal-nav-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+
+    .titulo-categoria {
         font-size: 1.8rem;
     }
 }
 
-@media (max-width: 480px) {
-    .libros-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .libro img {
-        height: 250px;
-    }
-}
+@media (min-width: 769px) and (max-width: 1366px) {
 
+    body {
+        padding-top: 30px !important; 
+        margin-top: 10px !important;
+    }
+
+    .nav-menu ul {
+        gap: 2px; 
+    }
+
+    .nav-menu ul li .link {
+        margin: 0 4px; 
+        padding: 4px 6px; 
+    }
+
+    .nav-phrase {
+        font-size: 1.2vw;    
+    }
+
+    .nav-menu ul li .link::after {
+        bottom: 2px; 
+        height: 2px; 
+    }
+
+    .dropdown-menu {
+        margin-top: 10px !important;
+        left: -18px !important;
+    }
+
+    .dropdown-submenu .dropdown-menu {
+        min-width: 160px !important;
+        margin-left: 0 !important;
+        left: 100% !important;
+        top: -5px !important;
+    }
+        
+}
 
 
