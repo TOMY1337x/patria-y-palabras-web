@@ -15,7 +15,6 @@ html, body {
 
 body {
     padding-top: 80px; 
-    overflow-y: auto;
     perspective: none;
     display: grid;
 }

@@ -308,7 +308,7 @@ body {
 
 @media (max-width: 768px) {
     body {
-        padding-top: 60px;
+        padding-top: 70px;
         grid-template-rows: 30vh 35vh 35vh;
         overflow-x: hidden;
     }
@@ -471,7 +471,7 @@ body {
 
     .background-grid {
         grid-template-columns: 50% 50%;
-        grid-template-rows: 30vh 35vh 35vh;
+        grid-template-rows: 30vh 20vh 35vh;
         top: 70px; 
         height: calc(100vh - 70px);
         width: 100%;
@@ -486,7 +486,7 @@ body {
     }
 
     .box2 {
-        padding: 8px;
+        padding: 7px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -495,7 +495,8 @@ body {
         overflow: hidden;
         box-sizing: border-box;
         margin-top: -10px;
-        padding-top: 18px;
+        padding-top: 40px;
+        height: 33vh;
     }
 
     .box2 h2 {
@@ -521,7 +522,7 @@ body {
     }
 
     .box3 {
-        padding: 10px;
+        padding: 8px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -529,6 +530,7 @@ body {
         text-align: center;
         overflow: hidden;
         box-sizing: border-box;
+        margin-top: 10px;
     }
 
     .box3 h2 {
