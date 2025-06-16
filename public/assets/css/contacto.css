@@ -9,7 +9,8 @@
 html, body {
     height: 100%;
     margin: 0;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 body {
@@ -492,7 +493,7 @@ body {
         height: auto;
         min-height: 100vh;
         padding: 20px;
-        overflow: hidden;
+         overflow: visible;
     }
 
     .imagen-flotante {
