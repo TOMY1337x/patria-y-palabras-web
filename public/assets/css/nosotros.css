@@ -483,9 +483,9 @@ body {
         padding: 5px;
         box-sizing: border-box;
         overflow: hidden;
-        background-size: 90%; /* Reduce el tamaño para que quepa completa con margen */
-        background-position: center center; /* Centrada para que se vea completa */
-        padding: 5px;
+        background-size: 90%; 
+        background-position: center center; 
+        
     }
 
     .box2 {
