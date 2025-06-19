@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const contenedor = document.getElementById("libros-container");
     
     try {
-        contenedor.innerHTML = '<div class="loading">Cargando novedades...</div>';
+        contenedor.innerHTML = '<div class="loading-spinner"><i class="bx bx-loader-circle bx-spin"></i><p>Cargando novedades...</p></div>';
         const MAX_WAIT_TIME = 5000;
         const CHECK_INTERVAL = 100;
         let timeWaited = 0;
@@ -41,12 +41,67 @@ document.addEventListener("DOMContentLoaded", async () => {
             const div = document.createElement("div");
             div.className = "libro";
 
-            const img = document.createElement("img");
-            img.src = libro.imagen_url;
-            img.alt = libro.titulo;
-            img.loading = "lazy";
-            img.title = `${libro.titulo} - ${libro.autor}`;
-            div.appendChild(img);
+            // Obtener todas las imágenes del libro
+            const todasLasImagenes = libro.imagenes_urls || [libro.imagen_url];
+            let currentImageIndex = 0;
+
+            const imagenesContainer = document.createElement("div");
+            imagenesContainer.className = "libro-imagenes-container";
+            imagenesContainer.title = "Haz clic para ampliar";
+
+            const imgPrincipal = document.createElement("img");
+            imgPrincipal.src = todasLasImagenes[0].replace('/upload/', '/upload/w_500,h_500,c_fill/');
+            imgPrincipal.alt = `${libro.titulo} - ${libro.autor}`;
+            imgPrincipal.loading = "lazy";
+            imgPrincipal.className = "imagen-principal";
+            imagenesContainer.appendChild(imgPrincipal);
+            
+            // Añadir controles de navegación si hay múltiples imágenes
+            if (todasLasImagenes.length > 1) {
+                const navControls = document.createElement("div");
+                navControls.className = "image-nav-controls";
+
+                const prevBtn = document.createElement("button");
+                prevBtn.className = "image-nav-btn prev";
+                prevBtn.innerHTML = '<i class="bx bx-chevron-left"></i>';
+                prevBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    currentImageIndex = (currentImageIndex - 1 + todasLasImagenes.length) % todasLasImagenes.length;
+                    imgPrincipal.src = todasLasImagenes[currentImageIndex].replace('/upload/', '/upload/w_500,h_500,c_fill/');
+                });
+                navControls.appendChild(prevBtn);
+
+                const nextBtn = document.createElement("button");
+                nextBtn.className = "image-nav-btn next";
+                nextBtn.innerHTML = '<i class="bx bx-chevron-right"></i>';
+                nextBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    currentImageIndex = (currentImageIndex + 1) % todasLasImagenes.length;
+                    imgPrincipal.src = todasLasImagenes[currentImageIndex].replace('/upload/', '/upload/w_500,h_500,c_fill/');
+                });
+                navControls.appendChild(nextBtn);
+                
+                imagenesContainer.appendChild(navControls);
+            }
+
+            imagenesContainer.addEventListener("click", () => {
+                const images = todasLasImagenes.map((url, index) => ({
+                    src: url.replace('/upload/', '/upload/w_800,h_800,c_fill/'),
+                    alt: `${libro.titulo} - ${libro.autor}`
+                }));
+                openImageModal(images, currentImageIndex);
+            });
+
+            // Prevenir que los clicks en los botones activen el modal
+            if (imagenesContainer.querySelectorAll('.image-nav-btn').length > 0) {
+                imagenesContainer.querySelectorAll('.image-nav-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                    });
+                });
+            }
+
+            div.appendChild(imagenesContainer);
 
             const tituloLibro = document.createElement("h3");
             tituloLibro.textContent = libro.titulo;
@@ -67,8 +122,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             contenedor.appendChild(div);
         });
 
-        inicializarModal();
-
     } catch (error) {
         console.error("Error:", error);
         let errorMessage = `
@@ -83,49 +136,96 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 function formatearCategoria(categoria) {
-  if (!categoria) return "Sin categoría";
-  return categoria
-    .replace(/-/g, ' ')  
-    .split(' ')         
-    .map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1)) 
-    .join(' ');        
+    if (!categoria) return "Sin categoría";
+    return categoria
+        .replace(/-/g, ' ')  
+        .split(' ')         
+        .map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1)) 
+        .join(' ');        
 }
 
-function inicializarModal() {
+// Variables para el estado del carrusel
+let currentImages = [];
+let currentImgIndex = 0;
+
+// Función para abrir el modal con carrusel
+function openImageModal(images, startIndex = 0) {
     const modal = document.getElementById("imageModal");
     const modalImg = document.getElementById("modalImage");
     const captionText = document.getElementById("caption");
-    const closeBtn = document.querySelector(".close-modal");
+    const closeBtn = modal.querySelector(".close-modal");
+    const prevBtn = modal.querySelector(".modal-nav-btn.prev");
+    const nextBtn = modal.querySelector(".modal-nav-btn.next");
 
-    const bookImages = document.querySelectorAll('.libro img');
+    // Guardar estado
+    currentImages = images;
+    currentImgIndex = startIndex;
 
-    bookImages.forEach(img => {
-        img.addEventListener('click', function() {
-            modal.style.display = "block";
-            modalImg.src = this.src;
-            captionText.innerHTML = this.alt || "Imagen del libro";
-            
-            modalImg.style.transform = "scale(0.95)";
-            setTimeout(() => {
-                modalImg.style.transform = "scale(1)";
-                modalImg.style.transition = "transform 0.3s ease";
-            }, 10);
-        });
+    // Mostrar imagen inicial
+    showImage(startIndex);
+    modal.style.display = "flex";
+
+    // Función para mostrar imagen específica
+    function showImage(index) {
+        currentImgIndex = index;
+        modalImg.src = currentImages[currentImgIndex].src;
+        captionText.textContent = currentImages[currentImgIndex].alt;
+        
+        // Resetear zoom al cambiar imagen
+        modalImg.classList.remove("zoomed");
+    }
+
+    // Alternar zoom al hacer clic
+    modalImg.addEventListener("click", function() {
+        this.classList.toggle("zoomed");
     });
 
-    closeBtn.addEventListener('click', function() {
+    // Navegación con botones
+    prevBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        showImage((currentImgIndex - 1 + currentImages.length) % currentImages.length);
+    });
+
+    nextBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        showImage((currentImgIndex + 1) % currentImages.length);
+    });
+
+    // Navegación con teclado
+    function handleKeydown(e) {
+        if (modal.style.display === "flex") {
+            switch(e.key) {
+                case "ArrowLeft":
+                    e.preventDefault();
+                    showImage((currentImgIndex - 1 + currentImages.length) % currentImages.length);
+                    break;
+                case "ArrowRight":
+                    e.preventDefault();
+                    showImage((currentImgIndex + 1) % currentImages.length);
+                    break;
+                case "Escape":
+                    closeModal();
+                    break;
+                case " ":
+                case "Enter":
+                    modalImg.classList.toggle("zoomed");
+                    break;
+            }
+        }
+    }
+
+    // Cerrar modal
+    function closeModal() {
         modal.style.display = "none";
-    });
+        document.removeEventListener("keydown", handleKeydown);
+    }
 
-    modal.addEventListener('click', function(e) {
+    // Event listeners
+    closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
         if (e.target === modal) {
-            modal.style.display = "none";
+            closeModal();
         }
     });
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === "Escape" && modal.style.display === "block") {
-            modal.style.display = "none";
-        }
-    });
+    document.addEventListener("keydown", handleKeydown);
 }
