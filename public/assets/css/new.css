@@ -354,35 +354,24 @@ body {
     animation: fadeIn 0.3s;
 }
 
-.modal-content {
-    margin: auto;
-    display: block;
-    max-width: 90%;
-    max-height: 80vh;
-    object-fit: contain;
-}
-
 .modal-content-img {
     max-width: 70%;
     max-height: 85vh;
-    min-width: 300px;
-    min-height: 300px;
+    min-width: 500px;
+    min-height: 500px;
     object-fit: contain;
     margin: 0 auto;
     display: block;
+    transition: none !important;
+    transform: none !important;
+    user-select: none;
 }
 
-.zoom-container {
-    position: relative;
-    flex: 1;
-    max-width: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: visible;
+
+.modal-content-img.zoomed {
+    cursor: grabbing;
 }
 
-/* Navegación del Modal */
 .modal-nav {
     position: fixed;
     top: 50%;
@@ -409,6 +398,14 @@ body {
 .modal-nav-btn:hover {
     background-color: rgba(0, 0, 0, 0.8);
     transform: scale(1.1);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 80vh;
+    object-fit: contain;
 }
 
 .carousel-container {
@@ -484,12 +481,7 @@ body {
 }
 
 .carousel-indicator.active {
-    background-color: #007900; /* Cambiado a verde para coincidir con tu tema */
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    background-color: #c71ab3;
 }
 
 #caption {
@@ -519,6 +511,11 @@ body {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes spin {
