@@ -79,26 +79,8 @@
     
     <div id="imageModal" class="modal">
         <span class="close-modal">&times;</span>
-        <div class="modal-content">
-            <div class="zoom-container">
-                <img id="modalImage" class="modal-content-img">
-            </div>
-            <div id="caption"></div>
-            <div class="modal-nav">
-                <button class="modal-nav-btn prev">❮</button>
-                <button class="modal-nav-btn next">❯</button>
-            </div>
-        </div>
-    </div>
-    <div id="carouselModal" class="modal">
-        <span class="close-modal">&times;</span>
-        <div class="carousel-container">
-            <button class="carousel-button prev">&#10094;</button>
-            <div class="carousel-slides" id="carouselSlides"></div>
-            <button class="carousel-button next">&#10095;</button>
-        </div>
-        <div class="carousel-indicators" id="carouselIndicators"></div>
-        <div id="carouselCaption"></div>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
     </div>
     <script type="module" src="/firebase/firebase-config.js"></script>
     <script type="module" src="/firebase/firebase-auth.js"></script>
