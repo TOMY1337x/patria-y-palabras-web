@@ -632,15 +632,6 @@ body {
     }
 
 
-    #libros-container.libros-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-        padding: 1rem;
-        width: calc(100% - 2rem); 
-        margin: 0 auto;
-        box-sizing: border-box;
-    }
-
     .libros-categorias {
         padding: 2rem 1rem; 
     }
@@ -666,12 +657,6 @@ body {
         margin: 0;
         max-width: none; 
     }
-
-    .libros-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 20px;
-    }
-    
 
     .libro-imagenes-container {
         height: 180px; 
@@ -704,6 +689,92 @@ body {
 
     .titulo-categoria {
         font-size: 1.8rem;
+    }
+
+    .libros-grid {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 15px;
+        padding: 0 10px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .libro {
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        height: auto;
+    }
+
+    .libro:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .libro-imagenes-container {
+        height: 200px; 
+        aspect-ratio: unset; 
+        position: relative;
+        background: #f8f8f8;
+        overflow: hidden;
+    }
+
+    .libro-imagen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto; 
+        max-height: 200px;
+        object-fit: contain;
+        padding: 15px;
+    }
+
+    .libro h3 {
+        font-size: 0.95rem;
+        margin: 10px 10px 5px;
+        color: #333;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; 
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .libro p {
+        font-size: 0.8rem;
+        margin: 3px 10px;
+        color: #555;
+        line-height: 1.4;
+    }
+
+    .libro p strong {
+        color: #333;
+    }
+
+    .carrusel-flecha {
+        width: 19px;
+        height: 19px;
+        font-size: 14px;
+    }
+    
+    .carrusel-flecha.izquierda {
+        left: 8px;
+    }
+    
+    .carrusel-flecha.derecha {
+        right: 8px;
+    }
+
+    .contador-imagenes {
+        font-size: 11px;
+        padding: 1px 6px;
+        bottom: 8px;
+        right: 8px;
     }
 }
 
