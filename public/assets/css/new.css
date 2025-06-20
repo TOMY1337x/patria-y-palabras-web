@@ -667,6 +667,12 @@ body {
         max-width: none; 
     }
 
+    .libros-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+    }
+    
+
     .libro-imagenes-container {
         height: 180px; 
     }
