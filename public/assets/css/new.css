@@ -421,7 +421,7 @@ body {
     font-size: 24px;
     cursor: pointer;
     transition: all 0.3s;
-    display: none; /* Oculto por defecto */
+    display: none; 
     z-index: 2001;
 }
 
