@@ -269,8 +269,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     modalImg.style.minWidth = "400px";
     captionText.textContent = images[startIndex].alt;
     modal.style.display = "flex";
-    
+
+    function isMobileDevice() {
+      return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
     function setupZoom() {
+
+      if (isMobileDevice()) {
+        return; 
+      }
       const oldZoomArea = zoomContainer.querySelector('.zoom-area');
       if (oldZoomArea) {
           oldZoomArea.remove();
