@@ -1,8 +1,4 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const modal = document.getElementById("imageModal");
-  if (modal) {
-    modal.style.display = "none";
-  }
   // FIREBASE INITIALIZE 
   
   try {
@@ -258,12 +254,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     const zoomLens = document.querySelector(".zoom-lens");
     const zoomPreview = document.querySelector(".zoom-preview");
     const zoomContainer = document.querySelector(".zoom-container");
-
+    
     let isZoomActive = false;
     let zoomTimeout = null;
     
     currentImages = images;
     currentImgIndex = startIndex;
+
+    if (images.length <= 1) {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+    } else {
+        prevBtn.style.display = 'block';
+        nextBtn.style.display = 'block';
+    }
 
     modalImg.src = images[startIndex].src;
     modalImg.style.display = "block";
@@ -272,16 +276,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     modalImg.style.minWidth = "400px";
     captionText.textContent = images[startIndex].alt;
     modal.style.display = "flex";
-
+    
     function isMobileDevice() {
       return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
     function setupZoom() {
-
       if (isMobileDevice()) {
         return; 
       }
+      
       const oldZoomArea = zoomContainer.querySelector('.zoom-area');
       if (oldZoomArea) {
           oldZoomArea.remove();
@@ -296,6 +300,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       zoomArea.style.height = '100%';
       zoomArea.style.zIndex = '8';
       zoomArea.style.cursor = 'crosshair';
+      zoomArea.style.pointerEvents = 'none';
       
       zoomContainer.appendChild(zoomArea);
 
@@ -365,7 +370,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           const lensSize = parseInt(zoomLens.style.width) || 150;
           const halfLens = lensSize / 2;
           
-         
           let x = e.clientX - containerRect.left;
           let y = e.clientY - containerRect.top;
       
@@ -396,17 +400,14 @@ document.addEventListener("DOMContentLoaded", async () => {
           lastMousePosition = { x: e.clientX, y: e.clientY };
       }
 
-      zoomArea.addEventListener('mouseenter', (e) => {
-          e.stopPropagation();
+      zoomContainer.addEventListener('mouseenter', (e) => {
           if (isMouseInValidArea(e)) {
               isMouseInArea = true;
               activateZoom();
           }
       });
       
-      zoomArea.addEventListener('mousemove', (e) => {
-          e.stopPropagation();
-
+      zoomContainer.addEventListener('mousemove', (e) => {
           if (isMouseInValidArea(e)) {
               if (!isMouseInArea) {
                   isMouseInArea = true;
@@ -421,10 +422,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           }
       });
       
-      zoomArea.addEventListener('mouseleave', (e) => {
-          e.stopPropagation();
-          
-          const rect = zoomArea.getBoundingClientRect();
+      zoomContainer.addEventListener('mouseleave', (e) => {
+          const rect = zoomContainer.getBoundingClientRect();
           const toleranceLeave = 50; 
 
           if (
@@ -432,21 +431,6 @@ document.addEventListener("DOMContentLoaded", async () => {
               e.clientX > rect.right + toleranceLeave || 
               e.clientY < rect.top - toleranceLeave || 
               e.clientY > rect.bottom + toleranceLeave
-          ) {
-              isMouseInArea = false;
-              scheduleDeactivation();
-          }
-      });
-
-      zoomContainer.addEventListener('mouseleave', (e) => {
-          const rect = zoomContainer.getBoundingClientRect();
-          const containerTolerance = 100; 
-          
-          if (
-              e.clientX < rect.left - containerTolerance || 
-              e.clientX > rect.right + containerTolerance || 
-              e.clientY < rect.top - containerTolerance || 
-              e.clientY > rect.bottom + containerTolerance
           ) {
               isMouseInArea = false;
               scheduleDeactivation();
@@ -489,15 +473,24 @@ document.addEventListener("DOMContentLoaded", async () => {
       setTimeout(setupZoom, 50);
     }
 
-    prevBtn.addEventListener("click", (e) => {
+    const newPrevBtn = prevBtn.cloneNode(true);
+    const newNextBtn = nextBtn.cloneNode(true);
+    prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
+    nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+
+    newPrevBtn.addEventListener("click", (e) => {
+      e.preventDefault();
       e.stopPropagation();
+      e.stopImmediatePropagation();
       showImage(currentImgIndex - 1);
-    });
+    }, { capture: true });
     
-    nextBtn.addEventListener("click", (e) => {
+    newNextBtn.addEventListener("click", (e) => {
+      e.preventDefault();
       e.stopPropagation();
+      e.stopImmediatePropagation();
       showImage(currentImgIndex + 1);
-    });
+    }, { capture: true });
 
     function handleKeydown(e) {
       if (modal.style.display === "flex") {
