@@ -679,6 +679,7 @@ body {
         min-height: unset;
         max-width: 100%;
         max-height: 60vh;
+        padding-top: 0; 
     }
 
     .modal-nav-btn {
