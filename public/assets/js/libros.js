@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  
+  const modal = document.getElementById("imageModal");
+  if (modal) {
+    modal.style.display = "none";
+  }
   // FIREBASE INITIALIZE 
   
   try {
