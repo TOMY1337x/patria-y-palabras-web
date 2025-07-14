@@ -1168,6 +1168,7 @@ body {
 
   .nav-phrase {
     order: 1;
+    font-size: 0.7rem !important
   }
 
   .search-container {
