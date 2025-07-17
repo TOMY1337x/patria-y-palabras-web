@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await new Promise((resolve, reject) => {
       const checkInitialization = () => {
         if (window.firebaseData && window.firebaseData.db && window.firebaseData.firestore) {
+          console.log("Firebase inicializado correctamente:", window.firebaseData);
           resolve();
         } else if (timeWaited >= MAX_WAIT_TIME) {
           reject(new Error("Tiempo de espera agotado. Firebase no se inicializó."));
@@ -67,14 +68,29 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   let currentCategory = null;
-  let allBooksInCategory = [];
+  let allBooksGlobal = [];
   let currentImages = [];
   let currentImgIndex = 0;
 
   function resaltarCoincidencias(texto, termino) {
     if (!termino) return texto;
-    const regex = new RegExp(`(${termino})`, 'gi');
-    return texto.replace(regex, '<span class="highlight">$1</span>');
+    
+    const textoNormalizado = normalizarTexto(texto);
+    const terminoNormalizado = normalizarTexto(termino);
+
+    const inicio = textoNormalizado.indexOf(terminoNormalizado);
+    
+    if (inicio === -1) return texto;
+    
+    const fin = inicio + termino.length;
+    
+    return (
+      texto.substring(0, inicio) +
+      '<span class="highlight">' +
+      texto.substring(inicio, fin) +
+      '</span>' +
+      texto.substring(fin)
+    );
   }
 
   function renderizarLibros(libros) {
@@ -101,7 +117,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       imgWrapper.className = "imagen-wrapper";
       
       const imgPrincipal = document.createElement("img");
-      imgPrincipal.src = todasLasImagenes[0].replace('/upload/', '/upload/w_500,h_500,c_fill/');
+      imgPrincipal.src = todasLasImagenes[currentImageIndex].replace('/upload/', '/upload/w_500,h_500,c_pad/');
       imgPrincipal.alt = libro.titulo;
       imgPrincipal.loading = "lazy";
       imgPrincipal.className = "imagen-principal";
@@ -117,7 +133,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         prevBtn.addEventListener("click", (e) => {
           e.stopPropagation();
           currentImageIndex = (currentImageIndex - 1 + todasLasImagenes.length) % todasLasImagenes.length;
-          imgPrincipal.src = todasLasImagenes[currentImageIndex].replace('/upload/', '/upload/w_500,h_500,c_fill/');
+          imgPrincipal.src = todasLasImagenes[currentImageIndex].replace(
+            '/upload/', 
+            '/upload/w_500,h_500,c_pad/' 
+          );
           counter.textContent = `${currentImageIndex + 1}/${todasLasImagenes.length}`;
         });
         navControls.appendChild(prevBtn);
@@ -128,7 +147,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         nextBtn.addEventListener("click", (e) => {
           e.stopPropagation();
           currentImageIndex = (currentImageIndex + 1) % todasLasImagenes.length;
-          imgPrincipal.src = todasLasImagenes[currentImageIndex].replace('/upload/', '/upload/w_500,h_500,c_fill/');
+          imgPrincipal.src = todasLasImagenes[currentImageIndex].replace(
+            '/upload/', 
+            '/upload/w_500,h_500,c_pad/' 
+          );
           counter.textContent = `${currentImageIndex + 1}/${todasLasImagenes.length}`;
         });
         navControls.appendChild(nextBtn);
@@ -143,7 +165,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       imagenesContainer.addEventListener("click", () => {
         const images = todasLasImagenes.map((url, index) => ({
-          src: url.replace('/upload/', '/upload/w_800,h_800,c_fill/'),
+          src: url.replace('/upload/', '/upload/w_800,h_800,c_limit/'),
           alt: `${libro.titulo}`
         }));
         
@@ -186,61 +208,151 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  function buscarEnCategoria(terminoBusqueda) {
-    if (!allBooksInCategory.length) return;
+  function normalizarTexto(texto) {
+    return texto
+      .toLowerCase() 
+      .normalize("NFD") 
+      .replace(/[\u0300-\u036f]/g, ""); 
+  }
 
-    const termino = terminoBusqueda.toLowerCase().trim();
-    
-    if (!termino) {
-      renderizarLibros(allBooksInCategory);
+  function buscarLibros(terminoBusqueda) {
+    const contenedor = document.getElementById("libros-container");
+    const tituloCategoria = document.getElementById("titulo-categoria");
+    const termino = terminoBusqueda ? terminoBusqueda.toLowerCase().trim() : '';
+
+    if (!allBooksGlobal || allBooksGlobal.length === 0) {
+      contenedor.innerHTML = '<div class="loading">Cargando libros...</div>';
       return;
     }
 
-    const librosFiltrados = allBooksInCategory.filter(libro => 
-      libro.titulo.toLowerCase().includes(termino) || 
-      libro.autor.toLowerCase().includes(termino)
-    );
+    if (termino) {
+      contenedor.innerHTML = '<div class="loading">Buscando...</div>';
 
-    renderizarLibros(librosFiltrados);
+      setTimeout(() => {
+        const autoresExactos = allBooksGlobal
+          .filter(libro => normalizarTexto(libro.autor) === termino)
+          .map(libro => libro.autor);
+        
+        if (autoresExactos.length > 0) {
+          const autor = autoresExactos[0];
+          const librosAutor = allBooksGlobal.filter(libro => libro.autor === autor);
+         
+          tituloCategoria.textContent = `LIBROS DE ${autor.toUpperCase()}`;
+          contenedor.innerHTML = '';
+          
+          librosAutor.forEach(libro => {
+            const div = document.createElement("div");
+            div.className = "libro";           
+            
+            const imgPrincipal = document.createElement("img");
+            imgPrincipal.src = libro.imagen_url.replace('/upload/', '/upload/w_500,h_500,c_fill/');
+            imgPrincipal.alt = libro.titulo;
+            imgPrincipal.loading = "lazy";
+            div.appendChild(imgPrincipal);
+            
+            const tituloLibro = document.createElement("h3");
+            tituloLibro.textContent = libro.titulo;
+            div.appendChild(tituloLibro);
+            
+            const categoria = document.createElement("p");
+            categoria.innerHTML = `<strong>Categoría:</strong> ${libro.categoria}`;
+            div.appendChild(categoria);
+            
+            const precio = document.createElement("p");
+            precio.innerHTML = `<strong>Precio:</strong> $${libro.precio.toFixed(2)}`;
+            div.appendChild(precio);
+            
+            contenedor.appendChild(div);
+          });
+          return;
+        }
+
+        const librosFiltrados = allBooksGlobal.filter(libro => {
+          const titulo = normalizarTexto(libro.titulo);
+          const autor = normalizarTexto(libro.autor);
+          return titulo.includes(termino) || autor.includes(termino);
+        });
+
+        if (librosFiltrados.length > 0) {
+          const categoriaDelLibro = librosFiltrados[0].categoria;
+          
+          if (currentCategory !== categoriaDelLibro) {
+            currentCategory = categoriaDelLibro;
+            const nombreCategoria = categoriaDelLibro.replace(/-/g, ' ');
+            
+            window.history.pushState({}, '', `?categoria=${categoriaDelLibro}`);
+            tituloCategoria.textContent = nombreCategoria.toUpperCase();
+            
+            contenedor.innerHTML = `
+              <div class="category-alert success">
+                <p>🔍 <strong>Libro encontrado en la categoría "${nombreCategoria}"</strong></p>
+              </div>
+            `;
+            
+            const librosEnCategoria = librosFiltrados.filter(libro => libro.categoria === categoriaDelLibro);
+            renderizarLibros(librosEnCategoria);
+          } else {
+            tituloCategoria.textContent = currentCategory.replace(/-/g, ' ').toUpperCase();
+            renderizarLibros(librosFiltrados);
+          }
+        } else {
+          contenedor.innerHTML = `
+            <div class="category-alert warning">
+              <p>No se encontraron libros que coincidan con "${termino}"</p>
+              ${currentCategory ? `<a href="#" id="search-all-link">Buscar en todas las categorías</a>` : ''}
+            </div>
+          `;
+          
+          const searchAllLink = document.getElementById("search-all-link");
+          if (searchAllLink) {
+            searchAllLink.addEventListener("click", (e) => {
+              e.preventDefault();
+              currentCategory = null;
+              window.history.pushState({}, '', window.location.pathname);
+              tituloCategoria.textContent = "RESULTADOS DE BÚSQUEDA";
+              buscarLibros(termino);
+            });
+          }
+        }
+      }, 100);
+    } else {
+      if (currentCategory) {
+        cargarLibrosPorCategoria(currentCategory);
+      } else {
+        contenedor.innerHTML = "<p>Explora nuestros libros usando el buscador o selecciona una categoría.</p>";
+      }
+    }
   }
 
   async function cargarLibrosPorCategoria(categoria) {
     currentCategory = categoria;
     const titulo = document.getElementById("titulo-categoria");
-    const contenedor = document.getElementById("libros-container");
-
     titulo.textContent = categoria.replace(/-/g, " ").toUpperCase();
-    contenedor.innerHTML = '<div class="loading">Cargando libros...</div>';
 
+    if (allBooksGlobal.length === 0) {
+      await cargarTodosLosLibros();
+    }
+
+    const librosCategoria = allBooksGlobal.filter(libro => libro.categoria === categoria);
+    
+    if (librosCategoria.length === 0) {
+      document.getElementById("libros-container").innerHTML = 
+        `<p>Todavía no hay libros en ${categoria.replace(/-/g, ' ')}😟.</p>`;
+    } else {
+      renderizarLibros(librosCategoria);
+    }
+  }
+
+  async function cargarTodosLosLibros() {
     try {
       const { db, firestore } = window.firebaseData;
-      const q = firestore.query(
-        firestore.collection(db, "libros"),
-        firestore.where("categoria", "==", categoria)
-      );
-
+      const q = firestore.query(firestore.collection(db, "libros"));
       const querySnapshot = await firestore.getDocs(q);
-      allBooksInCategory = querySnapshot.docs.map(doc => doc.data());
-
-      if (querySnapshot.empty) {
-        contenedor.innerHTML = `<p>Todavía no subimos libros en ${categoria.replace(/-/g, ' ')}😟.</p>`;
-        return;
-      }
-
-      const searchInput = document.getElementById("search-input");
-      if (searchInput && searchInput.value.trim()) {
-        buscarEnCategoria(searchInput.value.trim());
-      } else {
-        renderizarLibros(allBooksInCategory);
-      }
-
+      allBooksGlobal = querySnapshot.docs.map(doc => doc.data());
+      console.log("Total de libros cargados:", allBooksGlobal.length);
     } catch (error) {
-      console.error("Error cargando libros:", error);
-      contenedor.innerHTML = `
-        <p class="error">Error al cargar los libros. 
-        <button onclick="location.reload()">Reintentar</button>
-        </p>
-      `;
+      console.error("Error cargando todos los libros:", error);
+      throw error;
     }
   }
 
@@ -531,37 +643,228 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     document.addEventListener("keydown", handleKeydown);
   }
+  
+  function mostrarSugerencias(termino) {
+    const container = document.getElementById("suggestions-container");
+    container.innerHTML = '';
+    
+    if (!termino || termino.length < 2 || allBooksGlobal.length === 0) {
+      container.style.display = 'none';
+      return;
+    }
+    
+    const terminoLower = normalizarTexto(termino);
+    const sugerencias = [];
+    const autoresEncontrados = new Set();
+
+    allBooksGlobal.forEach(libro => {
+      const autorNormalizado = normalizarTexto(libro.autor);
+      
+      if (autorNormalizado.includes(terminoLower)) {
+        autoresEncontrados.add(libro.autor);
+      }
+    });
+
+    Array.from(autoresEncontrados).forEach(autor => {
+      const totalLibros = allBooksGlobal.filter(l => l.autor === autor).length;
+      
+      sugerencias.push({
+        displayText: `📚 Ver todos los libros de ${autor} (${totalLibros})`,
+        searchText: autor,
+        type: 'author-all',
+        originalData: { autor }
+      });
+    });
+
+    allBooksGlobal.forEach(libro => {
+      const tituloNormalizado = normalizarTexto(libro.titulo);
+      const autorNormalizado = normalizarTexto(libro.autor);
+
+      if (tituloNormalizado.includes(terminoLower) && 
+          !autoresEncontrados.has(libro.autor)) {
+        
+        sugerencias.push({
+          displayText: `${libro.titulo} - ${libro.autor}`,
+          searchText: libro.titulo,
+          type: 'book',
+          originalData: libro
+        });
+      }
+    });
+
+    const sugerenciasOrdenadas = sugerencias.sort((a, b) => {
+      if (a.type === 'author-all' && b.type !== 'author-all') return -1;
+      if (a.type !== 'author-all' && b.type === 'author-all') return 1;
+      return 0;
+    }).slice(0, 8);
+    
+    if (sugerenciasOrdenadas.length === 0) {
+      container.style.display = 'none';
+      return;
+    }
+
+    sugerenciasOrdenadas.forEach((sugerencia, index) => {
+      const div = document.createElement("div");
+      div.className = "suggestion-item";
+      div.dataset.index = index;
+ 
+      if (sugerencia.type === 'author-all') {
+        const autor = sugerencia.originalData.autor;
+        const matchStart = normalizarTexto(autor).indexOf(terminoLower);
+        const matchEnd = matchStart + termino.length;
+        
+        const autorResaltado = 
+          autor.substring(0, matchStart) +
+          '<span class="highlight">' + 
+          autor.substring(matchStart, matchEnd) + 
+          '</span>' +
+          autor.substring(matchEnd);
+        
+        div.innerHTML = `📚 Libros de ${autorResaltado}`;
+      } else {
+        const libro = sugerencia.originalData;
+        const tituloMatch = normalizarTexto(libro.titulo).indexOf(terminoLower);
+        const autorMatch = normalizarTexto(libro.autor).indexOf(terminoLower);
+        
+        if (tituloMatch !== -1) {
+          const tituloResaltado = 
+            libro.titulo.substring(0, tituloMatch) +
+            '<span class="highlight">' + 
+            libro.titulo.substring(tituloMatch, tituloMatch + termino.length) + 
+            '</span>' +
+            libro.titulo.substring(tituloMatch + termino.length);
+          
+          div.innerHTML = `${tituloResaltado} - ${libro.autor}`;
+        } else {
+          const autorResaltado = 
+            libro.autor.substring(0, autorMatch) +
+            '<span class="highlight">' + 
+            libro.autor.substring(autorMatch, autorMatch + termino.length) + 
+            '</span>' +
+            libro.autor.substring(autorMatch + termino.length);
+          
+          div.innerHTML = `${libro.titulo} - ${autorResaltado}`;
+        }
+      }
+      
+      div.addEventListener("click", () => {
+        document.getElementById("search-input").value = sugerencia.searchText;
+        
+        if (sugerencia.type === 'author-all') {
+          mostrarVistaAutor(sugerencia.originalData.autor);
+        } else {
+          buscarLibros(sugerencia.searchText);
+        }
+        
+        container.style.display = 'none';
+      });
+      
+      container.appendChild(div);
+    });
+    
+    container.style.display = 'block';
+  }
+
+  function mostrarVistaAutor(autor) {
+    const contenedor = document.getElementById("libros-container");
+    const tituloCategoria = document.getElementById("titulo-categoria");
+    
+    const librosAutor = allBooksGlobal.filter(libro => libro.autor === autor);
+    
+    tituloCategoria.textContent = `LIBROS DE ${autor.toUpperCase()}`;
+    contenedor.innerHTML = '';
+    
+    if (librosAutor.length === 0) {
+      contenedor.innerHTML = `<p>No se encontraron libros de ${autor}.</p>`;
+      return;
+    }
+
+    renderizarLibros(librosAutor);
+  }
 
   function configurarBusqueda() {
     const searchInput = document.getElementById("search-input");
-    const searchButton = document.getElementById("search-button") || 
-                         document.querySelector(".search-bar i.bx-search");
+    const searchButton = document.getElementById("search-button");
+    const suggestionsContainer = document.getElementById("suggestions-container");
+    const searchContainer = document.querySelector(".search-container");
 
-    if (searchButton) {
-      searchButton.addEventListener("click", () => {
-        if (currentCategory && searchInput.value.trim()) {
-          buscarEnCategoria(searchInput.value.trim());
-        }
-      });
-    }
+    searchInput.addEventListener("input", (e) => {
+      clearTimeout(window.searchTimeout);
+      const termino = e.target.value.trim();
+      
+      mostrarSugerencias(termino);
 
-    if (searchInput) {
-      searchInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter" && currentCategory && searchInput.value.trim()) {
-          buscarEnCategoria(searchInput.value.trim());
+      window.searchTimeout = setTimeout(() => {
+        buscarLibros(termino);
+      }, 350);
+    });
+
+    searchInput.addEventListener("focus", () => {
+      if (searchInput.value.trim()) {
+        mostrarSugerencias(searchInput.value.trim());
+      }
+    });
+
+    searchInput.addEventListener("keydown", (e) => {
+      const items = suggestionsContainer.querySelectorAll(".suggestion-item");
+      const activeItem = suggestionsContainer.querySelector(".highlighted");
+      
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const nextIndex = activeItem ? 
+          (parseInt(activeItem.dataset.index) + 1) % items.length : 0;
+        highlightSuggestion(items, nextIndex);
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const prevIndex = activeItem ? 
+          (parseInt(activeItem.dataset.index) - 1 + items.length) % items.length : items.length - 1;
+        highlightSuggestion(items, prevIndex);
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (activeItem) {
+          activeItem.click();
+        } else {
+          buscarLibros(searchInput.value.trim());
         }
-      });
+      }
+    });
+
+    searchButton.addEventListener("click", () => {
+      buscarLibros(searchInput.value.trim());
+      suggestionsContainer.style.display = 'none';
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!searchContainer.contains(e.target)) {
+        suggestionsContainer.style.display = 'none';
+      }
+    });
+  }
+
+  function highlightSuggestion(items, index) {
+    items.forEach(item => item.classList.remove("highlighted"));
+    if (items[index]) {
+      items[index].classList.add("highlighted");
+      items[index].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
   }
 
-  const params = new URLSearchParams(window.location.search);
-  const categoria = params.get("categoria");
-
-  if (!categoria) {
-    document.getElementById("libros-container").innerHTML = "<p>Selecciona una categoría desde el menú.</p>";
-    return;
+  try {
+    await cargarTodosLosLibros();
+    configurarBusqueda();
+    
+    const params = new URLSearchParams(window.location.search);
+    const categoria = params.get("categoria");
+    
+    if (categoria) {
+      await cargarLibrosPorCategoria(categoria);
+    } else {
+      document.getElementById("libros-container").innerHTML = 
+        "<p>Explora nuestros libros usando el buscador o selecciona una categoría.</p>";
+    }
+  } catch (error) {
+    console.error("Error inicializando:", error);
+    document.getElementById("libros-container").innerHTML = 
+      `<p class="error">Error al cargar los libros. <button onclick="location.reload()">Reintentar</button></p>`;
   }
-
-  configurarBusqueda();
-  await cargarLibrosPorCategoria(categoria);
 });

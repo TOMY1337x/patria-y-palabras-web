@@ -781,7 +781,7 @@ body {
 
 @media (max-width: 768px) {
     body {
-        padding-top: calc(100px + env(safe-area-inset-top));
+        padding-top: calc(120px + env(safe-area-inset-top));
     }
 
     .nav-wrapper {
@@ -891,7 +891,7 @@ body {
     .dropdown-menu {
         position: absolute;
         left: 0;
-        top: 200%;
+        top: 120%;
         min-width: 120px;
         width: auto;
         background: #c71ab3;
@@ -943,11 +943,15 @@ body {
         margin-top: 2rem;
     }
 
+    .titulo-categoria {
+        padding-right: 65px;
+    }
+
     #libros-container.libros-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 6px;
-        padding: 0 8px;
+        gap: 25px;
+        padding: 0 25px;
         width: 100%;
         box-sizing: border-box;
     }
@@ -962,7 +966,7 @@ body {
         transition: all 0.3s ease;
         height: auto;
         max-width: 100%;
-        width: 85%;
+        width: 80%;
         box-sizing: border-box;
     }
 
