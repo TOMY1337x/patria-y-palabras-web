@@ -48,11 +48,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                             [libro.imagen_url];
 
             div.dataset.imagenes = JSON.stringify(imagenes.map(img => 
-                img.replace('/upload/', '/upload/w_800,h_800,c_fill/')
+                img.replace('/upload/', '/upload/w_800,h_800,c_fit/')
             ));
 
             const img = document.createElement("img");
-            img.src = imagenes[0].replace('/upload/', '/upload/w_500,h_500,c_fill/');
+            img.src = imagenes[0].replace('/upload/', '/upload/w_500,h_500,c_fit/');
             img.alt = `${libro.titulo} - ${libro.autor}`;
             img.loading = "lazy";
             img.className = "libro-imagen";
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 flechaIzquierda.addEventListener("click", (e) => {
                     e.stopPropagation();
                     imagenActual = (imagenActual - 1 + imagenes.length) % imagenes.length;
-                    img.src = imagenes[imagenActual].replace('/upload/', '/upload/w_500,h_500,c_fill/');
+                    img.src = imagenes[imagenActual].replace('/upload/', '/upload/w_500,h_500,c_fit/');
                     contador.textContent = `${imagenActual + 1}/${imagenes.length}`;
                 });
 
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 flechaDerecha.addEventListener("click", (e) => {
                     e.stopPropagation();
                     imagenActual = (imagenActual + 1) % imagenes.length;
-                    img.src = imagenes[imagenActual].replace('/upload/', '/upload/w_500,h_500,c_fill/');
+                    img.src = imagenes[imagenActual].replace('/upload/', '/upload/w_500,h_500,c_fit/');
                     contador.textContent = `${imagenActual + 1}/${imagenes.length}`;
                     
                 });
@@ -154,9 +154,9 @@ function inicializarModal() {
             
             currentBookImages = libro.dataset.imagenes ? 
                 JSON.parse(libro.dataset.imagenes) : 
-                [this.src.replace('/upload/w_500,h_500,c_fill/', '/upload/w_800,h_800,c_fill/')];
+                [this.src.replace('/upload/w_500,h_500,c_fit/', '/upload/w_800,h_800,c_fit/')];
 
-            const currentSrc = this.src.replace('/upload/w_500,h_500,c_fill/', '/upload/w_800,h_800,c_fill/');
+            const currentSrc = this.src.replace('/upload/w_500,h_500,c_fit/', '/upload/w_800,h_800,c_fit/');
             currentImageIndex = currentBookImages.findIndex(img => img === currentSrc);
             if (currentImageIndex === -1) currentImageIndex = 0;
 
