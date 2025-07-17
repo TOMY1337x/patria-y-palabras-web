@@ -1129,7 +1129,7 @@ body {
     .imagen-principal {
         width: 100%;
         height: auto;
-        max-height: 140px;
+        max-height: 150px;
         object-fit: contain;
     }
 
@@ -1216,7 +1216,6 @@ body {
     }
 
     #modalImage {
-
         object-fit: contain;
         padding: 10px;
         box-sizing: border-box;
