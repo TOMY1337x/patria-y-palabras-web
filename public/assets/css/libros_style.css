@@ -1099,7 +1099,7 @@ body {
 
     #libros-container.libros-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, calc((100% - (25px * 2) - 25px) / 2));
         gap: 25px;
         padding: 0 25px;
         width: 100%;
