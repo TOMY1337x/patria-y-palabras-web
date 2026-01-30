@@ -209,16 +209,24 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function normalizarTexto(texto) {
+    if (!texto) return '';
+    
     return texto
-      .toLowerCase() 
-      .normalize("NFD") 
-      .replace(/[\u0300-\u036f]/g, ""); 
+      .toLowerCase()
+      .replace(/á/g, 'a')
+      .replace(/é/g, 'e')
+      .replace(/í/g, 'i')
+      .replace(/ó/g, 'o')
+      .replace(/ú/g, 'u')
+      .replace(/ü/g, 'u')
+      .replace(/ñ/g, 'n');
   }
 
   function buscarLibros(terminoBusqueda) {
     const contenedor = document.getElementById("libros-container");
     const tituloCategoria = document.getElementById("titulo-categoria");
-    const termino = terminoBusqueda ? terminoBusqueda.toLowerCase().trim() : '';
+    const terminoOriginal = terminoBusqueda ? terminoBusqueda.trim() : ''; 
+    const termino = terminoOriginal ? normalizarTexto(terminoOriginal) : ''; 
 
     if (!allBooksGlobal || allBooksGlobal.length === 0) {
       contenedor.innerHTML = '<div class="loading">Cargando libros...</div>';
@@ -228,9 +236,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (termino) {
       contenedor.innerHTML = '<div class="loading">Buscando...</div>';
 
-      setTimeout(() => {
+      setTimeout(() => { 
         const autoresExactos = allBooksGlobal
-          .filter(libro => normalizarTexto(libro.autor) === termino)
+          .filter(libro => normalizarTexto(libro.autor) === termino) 
           .map(libro => libro.autor);
         
         if (autoresExactos.length > 0) {
@@ -298,7 +306,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         } else {
           contenedor.innerHTML = `
             <div class="category-alert warning">
-              <p>No se encontraron libros que coincidan con "${termino}"</p>
+              <p>No se encontraron libros que coincidan con "${terminoOriginal}"</p>
               ${currentCategory ? `<a href="#" id="search-all-link">Buscar en todas las categorías</a>` : ''}
             </div>
           `;
@@ -310,7 +318,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               currentCategory = null;
               window.history.pushState({}, '', window.location.pathname);
               tituloCategoria.textContent = "RESULTADOS DE BÚSQUEDA";
-              buscarLibros(termino);
+              buscarLibros(terminoOriginal); 
             });
           }
         }
@@ -855,8 +863,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     const params = new URLSearchParams(window.location.search);
     const categoria = params.get("categoria");
+    const terminoBusqueda = params.get("busqueda");
     
-    if (categoria) {
+    if (terminoBusqueda) {
+      document.getElementById("search-input").value = terminoBusqueda;
+      buscarLibros(terminoBusqueda);
+    } else if (categoria) {
       await cargarLibrosPorCategoria(categoria);
     } else {
       document.getElementById("libros-container").innerHTML = 

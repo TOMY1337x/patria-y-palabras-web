@@ -21,9 +21,7 @@
                             <li><a href="libros.html?categoria=arte">Arte</a></li>
                             <li><a href="libros.html?categoria=biografias">Biografías</a></li>
                             <li><a href="libros.html?categoria=ciencia-ficcion">Ciencia Ficción</a></li>
-                            <li><a href="libros.html?categoria=cocina">Cocina</a></li>
                             <li><a href="libros.html?categoria=cuentos">Cuentos</a></li>
-                            <li><a href="libros.html?categoria=idioma">Idioma</a></li>
                             <li><a href="libros.html?categoria=infantil">Infantil</a></li>
                             <li><a href="libros.html?categoria=juvenil">Juvenil</a></li>
                             <li class="dropdown-submenu">
@@ -34,9 +32,6 @@
                                     <li><a href="libros.html?categoria=universitario">Universitario</a></li>
                                 </ul>
                             </li>
-                            <li><a href="libros.html?categoria=manuales">Manuales</a></li>
-                            <li><a href="libros.html?categoria=matematica">Matemática/economía</a></li>
-                            <li><a href="libros.html?categoria=medicina">Medicina</a></li>
                             <li><a href="libros.html?categoria=musica">Música</a></li>
                             <li><a href="libros.html?categoria=novela">Novela</a></li>
                             <li><a href="libros.html?categoria=poesia">Poesía</a></li>
@@ -50,9 +45,7 @@
                                     <li><a href="libros.html?categoria=religion">Religión</a></li>
                                 </ul>
                             </li>
-                            <li><a href="libros.html?categoria=revista">Revista</a></li>
-                            <li><a href="libros.html?categoria=teatro">Teatro</a></li>
-                            <li><a href="libros.html?categoria=ensayos">Ensayos</a></li>
+                            <li><a href="libros.html?categoria=teatro-ensayos">Teatro y Ensayos</a></li>
                         </ul>
                     </li>    
                     <li><a href="index.html" class="link">Inicio</a></li>
@@ -61,14 +54,28 @@
                     <li><a href="contacto.html" class="link">Contacto</a></li>
                 </ul>
             </div>
-        <div class="nav-phrase">
-        Envíos gratis en Concepción del Uruguay, Colón y Villa Elisa ❤️
-        </div>
+            
+        <!-- Título central primero -->
         <div class="nav-center-phrase">
-        PATRIA Y PALABRAS
+            PATRIA Y PALABRAS
         </div>
+
+        <!-- Barra de búsqueda en el medio -->
+        <div class="nav-search-container">
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Buscar libros">
+                <button id="search-button"><i class='bx bx-search'></i></button>
+            </div>
+            <div id="suggestions-container" class="suggestions-dropdown"></div>
+        </div>
+
+        <div class="nav-phrase">
+            Envíos gratis en Concepción del Uruguay y Villa Elisa ❤️
+        </div> 
+
+        <!-- Botón menú móvil -->
         <div class="nav-menu-btn" id="menuBtn">
-        <i class='bx bx-menu'></i>
+            <i class='bx bx-menu'></i>
         </div>
         </nav>
     </div>
@@ -76,11 +83,11 @@
     <div class="main-content">
         <div class="gradient-background"></div>
         <div class="main-background">
-            <img src="images/pyp1.png" alt="main-image">
+            <img src="../images/pyp1.png" alt="main-image">
         </div>
 
         <div class="initial-background">
-            <img src="images/mafalda_3.png" alt="initial-image">
+            <img src="../images/mafalda_3.png" alt="initial-image">
         </div>
         
         <div class="cloud-text">PARA QUE TODO SEA CLARO Y SIN SORPRESAS, TE RECOMENDAMOS TENER EN CUENTA LOS DISTINTOS ESTADOS EN LOS QUE PUEDE LLEGAR A ESTAR TU LIBRO, CON ESTA CLASIFICACIÓN ASIGNADA. SEA CUAL SEA LA OPCIÓN ASIGNADA PARA TU LIBRO, TODOS SON LEGIBLES Y TIENEN LA CANTIDAD DE PÁGINAS COMPLETAS</div>
@@ -106,7 +113,10 @@
         </div>
     </div>
     <div class="gradient-background"></div>
+    <script type="module" src="../firebase/firebase-config.js"></script>
+    <script type="module" src="../firebase/firebase-auth.js"></script>
     <script type="module" src="assets/js/scripts.js"></script>
+    <script type="module" src="assets/js/search.js"></script>
     <script src="assets/js/submenu_function.js" defer></script>
 </body>
 </html>
