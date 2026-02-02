@@ -124,11 +124,10 @@ body {
     font-family: 'Playfair Display', serif;
     white-space: nowrap;
     order: 4;
-    /* margin-left: auto; REMOVER ESTA LÍNEA */
 }
 
 .nav-center-phrase {
-    flex: 0 0 auto; /* No crece, no se encoge, tamaño automático */
+    flex: 0 0 auto; 
     left: 50%;
     transform: translateX(-50%);
     color: white;
@@ -136,7 +135,7 @@ body {
     font-weight: bold;
     font-family: 'EB Garamond', serif;
     white-space: nowrap;
-    order: 2; /* Cambia el orden visual */
+    order: 2; 
 }
 
 .nav-logo img:hover {
@@ -150,9 +149,9 @@ body {
 }
 
 .nav-menu {
-    flex: 1; /*agregue esto*/
+    flex: 1; 
     display: flex;
-    justify-content: flex-start;/*agregue esto*/
+    justify-content: flex-start;
 }
 
 
@@ -525,13 +524,11 @@ body {
     order: 3;
 }
 
-/* Expansión al hacer focus */
 .nav-search-container:focus-within {
     width: 300px;
     transform: translateY(-2px);
 }
 
-/* Barra de búsqueda */
 .search-bar {
     display: flex;
     border-radius: 25px;
@@ -546,7 +543,6 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* Input de búsqueda */
 #search-input {
     flex-grow: 1;
     padding: 8px 15px;
@@ -556,7 +552,6 @@ body {
     background: transparent;
 }
 
-/* Botón de búsqueda */
 #search-button {
     background-color: transparent;
     color: #4A4F87;
@@ -577,9 +572,6 @@ body {
     font-size: 18px;
 }
 
-/* ============================================
-   DROPDOWN DE SUGERENCIAS - VERSIÓN CORREGIDA
-   ============================================ */
 
 .suggestions-dropdown {
     position: absolute;
@@ -593,22 +585,19 @@ body {
     border-radius: 8px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    
-    /* IMPORTANTE: Usar visibility en vez de display */
     visibility: hidden;
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
 }
 
-/* CRÍTICO: Mostrar dropdown cuando nav-search-container tiene foco */
+
 .nav-search-container:focus-within .suggestions-dropdown {
     visibility: visible !important;
     opacity: 1 !important;
     transform: translateY(0) !important;
 }
 
-/* Scrollbar personalizada */
 .suggestions-dropdown::-webkit-scrollbar {
     width: 6px;
 }
@@ -627,9 +616,6 @@ body {
     background: #555;
 }
 
-/* ============================================
-   ITEMS DE SUGERENCIA
-   ============================================ */
 
 .suggestion-item {
     padding: 10px 15px;
@@ -652,9 +638,6 @@ body {
     background-color: #f8f9fa;
 }
 
-/* ============================================
-   RESALTADO DE COINCIDENCIAS
-   ============================================ */
 
 .suggestion-item .highlight {
     background-color: #e6f0ff;
@@ -679,9 +662,6 @@ body {
     margin-left: 8px;
 }
 
-/* ============================================
-   SUGERENCIAS DE AUTORES (estilo especial)
-   ============================================ */
 
 .suggestion-item[data-type="author-all"] {
     font-weight: 600;
@@ -690,9 +670,6 @@ body {
     border-left: 3px solid #4A4F87;
 }
 
-/* ============================================
-   OTROS ESTILOS RELACIONADOS
-   ============================================ */
 
 #search-all-link {
     color: #4a90e2;
@@ -915,10 +892,10 @@ body {
     }
 
     .dropdown-toggle .bx-chevron-down {
-        font-size: 18px !important; /* Tamaño */
+        font-size: 18px !important; 
         vertical-align: middle !important;
         position: relative !important;
-        top: -23px !important; /* Ajusta este valor: -1px, -2px, -3px */
+        top: -23px !important; 
         margin-left: 2px !important;
         display: inline-block !important;
     }
@@ -1010,16 +987,16 @@ body {
     }
 
     .nav-menu {
-        margin-top: 5px !important; /* Añade o aumenta este margen */
+        margin-top: 5px !important; 
         position: relative;
-        top: 7px; /* Opcional: mueve hacia abajo */
+        top: 7px; 
     }
 
     .dropdown-toggle .bx-chevron-down {
         font-size: 18px !important;
         vertical-align: middle !important;
         position: relative !important;
-        top: -22px !important; /* Aumenta de -23px a -30px */
+        top: -22px !important; 
         margin-left: -5px !important;
         display: inline-block !important;
     }
@@ -1067,13 +1044,12 @@ body {
     }
 
     .nav-search-container {
-        transform: translateX(-70px); /* Posición base a la izquierda */
+        transform: translateX(-70px); 
     }
 
-    /* NUEVO: Mantener la posición izquierda cuando tiene focus */
     .nav-search-container:focus-within {
         width: 300px;
-        transform: translate(-60px, 0px); /* -60px izquierda (se mueve 10px a la derecha desde -70px), -2px arriba */
+        transform: translate(-60px, 0px); 
     }
 
     .main-content {
@@ -1129,12 +1105,12 @@ body {
         }
 
         .nav-search-container {
-            margin-left: -20px; /* Ajusta este valor según necesites */
+            margin-left: -20px; 
         }
 
         .nav-phrase {
             font-size: 1rem;
-            margin-left: -70px; /* Mueve hacia la IZQUIERDA */
+            margin-left: -70px; 
         }
 
         .main-background img {
@@ -1167,15 +1143,15 @@ body {
 @media (max-width: 360px) {
     .nav {
         padding: 8px 0px;
-        gap: -8px; /* Reduce el espacio entre elementos del nav */
+        gap: -8px; 
     }
     
     .nav-logo {
-        gap: 8px; /* Reduce gap entre logo y otros elementos */
+        gap: 8px; 
     }
     
     .nav-logo img {
-        height: 100px; /* Logo más pequeño */
+        height: 100px; 
     }
     
     .nav-center-phrase {
@@ -1188,15 +1164,15 @@ body {
         font-size: 18px !important;
         vertical-align: middle !important;
         position: relative !important;
-        top: -1px !important; /* Cambiado de -23px a -18px (baja más la flecha) */
+        top: -1px !important; 
         margin-left: -3px !important;
         display: inline-block !important;
     }
 
     .dropdown-menu {
         min-width: 180px;
-        left: -20px !important; /* Mueve más a la IZQUIERDA (aumenta el valor negativo para más izquierda) */
-        margin-top: 0px !important; /* Mueve MÁS ABAJO (aumenta para bajar más) */
+        left: -20px !important; 
+        margin-top: 0px !important; 
         transform: none;
         margin-left: 0;
     }
@@ -1206,12 +1182,11 @@ body {
         font-size: 12px;
     }
     
-    /* Para submenús también */
     .dropdown-submenu .dropdown-menu {
-        left: 95% !important; /* Aumentado de 100% a 105% para moverlo más a la derecha */
+        left: 95% !important; 
         top: 0;
         min-width: 180px;
-        margin-left: 5px !important; /* Cambiado de -2px a 5px para separarlo más */
+        margin-left: 5px !important; 
     }
 
     .nav-phrase {
@@ -1221,22 +1196,21 @@ body {
     }
     
     .nav-menu ul {
-        gap: 2px; /* Reduce gap entre items del menú */
+        gap: 2px; 
     }
     
     .nav-menu ul li .link {
-        margin: 0 8px; /* Reduce margen entre links */
+        margin: 0 8px;
         font-size: 13px;
         padding-bottom: 8px;
     }
     
-    /* Ajusta el contenedor de búsqueda si lo tienes */
+
     .nav-search-container {
         width: 200px;
         margin: 5px 15px;
     }
     
-    /* Ajusta dropdowns */
     .dropdown-menu {
         min-width: 160px;
     }

@@ -1,0 +1,54 @@
+[debug] [2026-02-02T13:11:36.692Z] ----------------------------------------------------------------------
+[debug] [2026-02-02T13:11:36.694Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Tomy\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-02-02T13:11:36.695Z] CLI Version:   15.5.1
+[debug] [2026-02-02T13:11:36.695Z] Platform:      win32
+[debug] [2026-02-02T13:11:36.695Z] Node Version:  v22.14.0
+[debug] [2026-02-02T13:11:36.695Z] Time:          Mon Feb 02 2026 10:11:36 GMT-0300 (hora estándar de Argentina)
+[debug] [2026-02-02T13:11:36.695Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-02-02T13:11:38.138Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-02T13:11:38.138Z] > authorizing via signed-in user (approxs2@gmail.com)
+[debug] [2026-02-02T13:11:38.138Z] [iam] checking project pagina-web--pyp for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-02-02T13:11:38.139Z] Checked if tokens are valid: true, expires at: 1770040912239
+[debug] [2026-02-02T13:11:38.139Z] Checked if tokens are valid: true, expires at: 1770040912239
+[debug] [2026-02-02T13:11:38.140Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/pagina-web--pyp:testIamPermissions [none]
+[debug] [2026-02-02T13:11:38.140Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/pagina-web--pyp:testIamPermissions  x-goog-user-project=pagina-web--pyp
+[debug] [2026-02-02T13:11:38.140Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/pagina-web--pyp:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-02-02T13:11:39.304Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/pagina-web--pyp:testIamPermissions 200
+[debug] [2026-02-02T13:11:39.305Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/pagina-web--pyp:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-02-02T13:11:39.306Z] Checked if tokens are valid: true, expires at: 1770040912239
+[debug] [2026-02-02T13:11:39.306Z] Checked if tokens are valid: true, expires at: 1770040912239
+[debug] [2026-02-02T13:11:39.307Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/pagina-web--pyp [none]
+[debug] [2026-02-02T13:11:39.748Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/pagina-web--pyp 200
+[debug] [2026-02-02T13:11:39.748Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/pagina-web--pyp {"projectId":"pagina-web--pyp","projectNumber":"799732645620","displayName":"Pagina Web- PYP","name":"projects/pagina-web--pyp","resources":{"hostingSite":"pagina-web--pyp"},"state":"ACTIVE","etag":"1_5c3599ff-9226-4a30-bc0d-7b9b32b931a8"}
+[info] 
+[info] === Deploying to 'pagina-web--pyp'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2026-02-02T13:11:39.751Z] Checked if tokens are valid: true, expires at: 1770040912239
+[debug] [2026-02-02T13:11:39.751Z] Checked if tokens are valid: true, expires at: 1770040912239
+[debug] [2026-02-02T13:11:39.751Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pagina-web--pyp/versions [none]
+[debug] [2026-02-02T13:11:39.751Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pagina-web--pyp/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2026-02-02T13:11:41.063Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pagina-web--pyp/versions 200
+[debug] [2026-02-02T13:11:41.063Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pagina-web--pyp/versions {"name":"projects/799732645620/sites/pagina-web--pyp/versions/cf04e395336310a4","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[pagina-web--pyp]: beginning deploy... 
+[info] i  hosting[pagina-web--pyp]: found 30 files in public 
+[debug] [2026-02-02T13:11:41.077Z] [hosting] uploading with 200 concurrency
+[debug] [2026-02-02T13:11:41.084Z] Checked if tokens are valid: true, expires at: 1770040912239
+[debug] [2026-02-02T13:11:41.084Z] Checked if tokens are valid: true, expires at: 1770040912239
+[debug] [2026-02-02T13:11:41.085Z] [hosting] hash cache [cHVibGlj] stored for 30 files
+[debug] [2026-02-02T13:11:41.085Z] [hosting][hash queue][FINAL] {"max":4,"min":0,"avg":0.23333333333333334,"active":0,"complete":30,"success":30,"errored":0,"retried":0,"total":30,"elapsed":6}
+[debug] [2026-02-02T13:11:41.085Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/799732645620/sites/pagina-web--pyp/versions/cf04e395336310a4:populateFiles [none]
+[debug] [2026-02-02T13:11:41.085Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/799732645620/sites/pagina-web--pyp/versions/cf04e395336310a4:populateFiles {"files":{"/nosotros.html":"260c52d7670822b3d7d51a64452ea785507704df8e152701915a676515c243cb","/new.html":"f18cf4f2723bf94f83d69a25ceecd752e2815ad8687caa0713c66b8e42baa0d0","/libros.html":"1b32ff1a7ca0179c884f6c8575681a0bb4f9a952a12a33c6bd557f955aa238c6","/index.html":"48ce6739dc142a36df56c017dc33816e6af78d3417265f4742c5d87b8e827c2f","/contacto.html":"913bea8e1dd061b239a7089e6b6d163c8bc893f185bcf297f7f2649ef5b82244","/404.html":"41d1e074106979fb6591ec6953bfe5ace2788be22f0ed4189bd54905ebb5b44d","/images/pyp1.png":"6a9219ede0381c74b8f14ba4a2016e3666982a6052e2ec167a912582036a3387","/images/manolito.jpg":"c28f736a0e0b2e50ca1d4793818307bb8067169fb7de7a4524b86a5d61f037da","/images/mafalda_3.png":"efc27af4346291e9f015c4d001c06aac7269448071d4525276af4d912bfa9a28","/images/mafalda.png":"dc1e12567c48d709336c4b74584352ca7e5fe8fd4c9c7c11344f15f6be9fbccd","/images/guille.jpg":"2c42fd13c2d3c6ed33001c166c27d3f3a5f0fdac7d05432e2ea56d3f21ec3604","/images/felipe.png":"6d049e459c45fb07abe834082b6d9d6fff4b7389b376fba8e17c4a17bee08eaf","/firebase/firebase-config.js":"1b5f635a51ed21154965ee48ae3a9f7b34c1d1bf96da49fa72a59c159b7f1dd8","/firebase/firebase-auth.js":"e8d06dec758869beb6264e285531aa218dd5a02764a1e835427a6fc17ec09132","/assets/js/submenu_function.js":"5d065bfe56cbad882d9024bef60aa969a41984d2aa001977a0e319f26dcfd4f8","/assets/js/search.js":"f7e21e4bc37066cc91435630a7de2a10c76c8817ece05f741984be23e0c136e8","/assets/js/scripts.js":"48a29fe190ff71dec8c20148341eb59ef390ac45e1246b2007a70ffef397cfab","/assets/js/new.js":"c0b760d5ab5a0e47390abcef56157652a88ea54cff063101fbb6bcd1e185eb24","/assets/js/libros.js":"8ef4be4cef80fc7bf625dacd03b55097655d29168b684f78d4050a2c460ecc84","/assets/css/nosotros.css":"eeecd7032f167d822bbb24aa17499079ef4d5579f28cea717e3af9b95ba06020","/assets/css/new.css":"a4d2371cec9b1a30b06e1b035fb7b9177425f7d79e0d96a080359cd3eab3675d","/assets/css/libros_style.css":"7bbb635d8b0adcbe3cfe172a3343462c345d09e9049bd631d1bc800f168b2fb1","/admin-panel/panel/admin.html":"2a91b1db4daa83cc5443112a99bdd5c05b3a83d5e93a9233097547e7709268ac","/admin-panel/panel/js/admin.js":"17c483dd84b84e23a14a049e48474298a3334ce8a990e68a6d19fc033a660727","/admin-panel/panel/css/admin.css":"df5c026355c237c5d2d0ba5ace3402ebd7a948e6006d0d72e1ec3309fbd61f7d","/admin-panel/login/login.html":"5b404031b15e2ae14bc9d195d2caae8f764c55a3756871e62155f26b580fd1a4","/admin-panel/login/js/login.js":"d5ac0dbe98fabe9167fe7bb95231d56f24e4d207d1be8cf1b754adfffe0c6bf6","/admin-panel/login/css/login.css":"a6ef68ed72742d90435ce8a6ff7744ae8cedb4b0d606d318d9a9adc69deb455c","/assets/css/contacto.css":"568cc245b67170dc8ad8a11fdcead37a96640c391211eab310327f69015d0bc3","/assets/css/styles.css":"a6767d109f6d017a756bfe8e5ba80d494ed8278bf3fed9c1b7fa3c8233d9e084"}}
+[debug] [2026-02-02T13:11:41.416Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/799732645620/sites/pagina-web--pyp/versions/cf04e395336310a4:populateFiles 200
+[debug] [2026-02-02T13:11:41.416Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/799732645620/sites/pagina-web--pyp/versions/cf04e395336310a4:populateFiles {"uploadRequiredHashes":["a6767d109f6d017a756bfe8e5ba80d494ed8278bf3fed9c1b7fa3c8233d9e084","568cc245b67170dc8ad8a11fdcead37a96640c391211eab310327f69015d0bc3"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/pagina-web--pyp/versions/cf04e395336310a4/files"}
+[debug] [2026-02-02T13:11:41.416Z] Checked if tokens are valid: true, expires at: 1770040912239
+[debug] [2026-02-02T13:11:41.416Z] Checked if tokens are valid: true, expires at: 1770040912239
+[debug] [2026-02-02T13:11:41.416Z] Checked if tokens are valid: true, expires at: 1770040912239
+[debug] [2026-02-02T13:11:41.416Z] Checked if tokens are valid: true, expires at: 1770040912239
+[debug] [2026-02-02T13:11:41.417Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/pagina-web--pyp/versions/cf04e395336310a4/files/a6767d109f6d017a756bfe8e5ba80d494ed8278bf3fed9c1b7fa3c8233d9e084 [none]
+[debug] [2026-02-02T13:11:41.417Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/pagina-web--pyp/versions/cf04e395336310a4/files/a6767d109f6d017a756bfe8e5ba80d494ed8278bf3fed9c1b7fa3c8233d9e084 [stream]
+[debug] [2026-02-02T13:11:41.417Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/pagina-web--pyp/versions/cf04e395336310a4/files/568cc245b67170dc8ad8a11fdcead37a96640c391211eab310327f69015d0bc3 [none]
+[debug] [2026-02-02T13:11:41.418Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/pagina-web--pyp/versions/cf04e395336310a4/files/568cc245b67170dc8ad8a11fdcead37a96640c391211eab310327f69015d0bc3 [stream]
+[debug] [2026-02-02T13:11:41.418Z] [hosting][populate queue][FINAL] {"max":332,"min":332,"avg":332,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":334}
+[debug] [2026-02-02T13:11:41.418Z] [hosting] uploads queued: 2
