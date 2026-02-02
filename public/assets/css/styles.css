@@ -124,10 +124,11 @@ body {
     font-family: 'Playfair Display', serif;
     white-space: nowrap;
     order: 4;
+    /* margin-left: auto; REMOVER ESTA LÍNEA */
 }
 
 .nav-center-phrase {
-    flex: 0 0 auto; 
+    flex: 0 0 auto; /* No crece, no se encoge, tamaño automático */
     left: 50%;
     transform: translateX(-50%);
     color: white;
@@ -135,7 +136,7 @@ body {
     font-weight: bold;
     font-family: 'EB Garamond', serif;
     white-space: nowrap;
-    order: 2; 
+    order: 2; /* Cambia el orden visual */
 }
 
 .nav-logo img:hover {
@@ -149,9 +150,9 @@ body {
 }
 
 .nav-menu {
-    flex: 1; 
+    flex: 1; /*agregue esto*/
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-start;/*agregue esto*/
 }
 
 
@@ -524,11 +525,13 @@ body {
     order: 3;
 }
 
+/* Expansión al hacer focus */
 .nav-search-container:focus-within {
     width: 300px;
     transform: translateY(-2px);
 }
 
+/* Barra de búsqueda */
 .search-bar {
     display: flex;
     border-radius: 25px;
@@ -574,6 +577,9 @@ body {
     font-size: 18px;
 }
 
+/* ============================================
+   DROPDOWN DE SUGERENCIAS - VERSIÓN CORREGIDA
+   ============================================ */
 
 .suggestions-dropdown {
     position: absolute;
@@ -587,19 +593,22 @@ body {
     border-radius: 8px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    
+    /* IMPORTANTE: Usar visibility en vez de display */
     visibility: hidden;
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
 }
 
+/* CRÍTICO: Mostrar dropdown cuando nav-search-container tiene foco */
 .nav-search-container:focus-within .suggestions-dropdown {
     visibility: visible !important;
     opacity: 1 !important;
     transform: translateY(0) !important;
 }
 
-
+/* Scrollbar personalizada */
 .suggestions-dropdown::-webkit-scrollbar {
     width: 6px;
 }
@@ -617,6 +626,10 @@ body {
 .suggestions-dropdown::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+/* ============================================
+   ITEMS DE SUGERENCIA
+   ============================================ */
 
 .suggestion-item {
     padding: 10px 15px;
@@ -638,6 +651,10 @@ body {
 .suggestion-item.highlighted {
     background-color: #f8f9fa;
 }
+
+/* ============================================
+   RESALTADO DE COINCIDENCIAS
+   ============================================ */
 
 .suggestion-item .highlight {
     background-color: #e6f0ff;
@@ -662,12 +679,20 @@ body {
     margin-left: 8px;
 }
 
+/* ============================================
+   SUGERENCIAS DE AUTORES (estilo especial)
+   ============================================ */
+
 .suggestion-item[data-type="author-all"] {
     font-weight: 600;
     color: #2c7be5;
     background-color: rgba(44, 123, 229, 0.05);
     border-left: 3px solid #4A4F87;
 }
+
+/* ============================================
+   OTROS ESTILOS RELACIONADOS
+   ============================================ */
 
 #search-all-link {
     color: #4a90e2;
@@ -890,10 +915,10 @@ body {
     }
 
     .dropdown-toggle .bx-chevron-down {
-        font-size: 18px !important; 
+        font-size: 18px !important; /* Tamaño */
         vertical-align: middle !important;
         position: relative !important;
-        top: -23px !important; 
+        top: -23px !important; /* Ajusta este valor: -1px, -2px, -3px */
         margin-left: 2px !important;
         display: inline-block !important;
     }
@@ -960,6 +985,7 @@ body {
     .gradient-background {
         height:180vh !important;
     }
+    
 }
 
 
@@ -984,16 +1010,16 @@ body {
     }
 
     .nav-menu {
-        margin-top: 5px !important; 
+        margin-top: 5px !important; /* Añade o aumenta este margen */
         position: relative;
-        top: 7px; 
+        top: 7px; /* Opcional: mueve hacia abajo */
     }
 
     .dropdown-toggle .bx-chevron-down {
         font-size: 18px !important;
         vertical-align: middle !important;
         position: relative !important;
-        top: -22px !important; 
+        top: -22px !important; /* Aumenta de -23px a -30px */
         margin-left: -5px !important;
         display: inline-block !important;
     }
@@ -1041,12 +1067,13 @@ body {
     }
 
     .nav-search-container {
-        transform: translateX(-70px); 
+        transform: translateX(-70px); /* Posición base a la izquierda */
     }
 
+    /* NUEVO: Mantener la posición izquierda cuando tiene focus */
     .nav-search-container:focus-within {
         width: 300px;
-        transform: translate(-60px, 0px); 
+        transform: translate(-60px, 0px); /* -60px izquierda (se mueve 10px a la derecha desde -70px), -2px arriba */
     }
 
     .main-content {
@@ -1089,6 +1116,7 @@ body {
     .text-malo {
         max-width: 100px;
     }
+    
 
     @media (min-width: 1200px) {
         .nav-logo img {
@@ -1101,12 +1129,12 @@ body {
         }
 
         .nav-search-container {
-            margin-left: -20px; 
+            margin-left: -20px; /* Ajusta este valor según necesites */
         }
 
         .nav-phrase {
             font-size: 1rem;
-            margin-left: -70px; 
+            margin-left: -70px; /* Mueve hacia la IZQUIERDA */
         }
 
         .main-background img {
@@ -1139,15 +1167,15 @@ body {
 @media (max-width: 360px) {
     .nav {
         padding: 8px 0px;
-        gap: -8px; 
+        gap: -8px; /* Reduce el espacio entre elementos del nav */
     }
     
     .nav-logo {
-        gap: 8px; 
+        gap: 8px; /* Reduce gap entre logo y otros elementos */
     }
     
     .nav-logo img {
-        height: 100px; 
+        height: 100px; /* Logo más pequeño */
     }
     
     .nav-center-phrase {
@@ -1160,15 +1188,15 @@ body {
         font-size: 18px !important;
         vertical-align: middle !important;
         position: relative !important;
-        top: -1px !important; 
+        top: -1px !important; /* Cambiado de -23px a -18px (baja más la flecha) */
         margin-left: -3px !important;
         display: inline-block !important;
     }
 
     .dropdown-menu {
         min-width: 180px;
-        left: -20px !important; 
-        margin-top: 0px !important; 
+        left: -20px !important; /* Mueve más a la IZQUIERDA (aumenta el valor negativo para más izquierda) */
+        margin-top: 0px !important; /* Mueve MÁS ABAJO (aumenta para bajar más) */
         transform: none;
         margin-left: 0;
     }
@@ -1178,11 +1206,12 @@ body {
         font-size: 12px;
     }
     
+    /* Para submenús también */
     .dropdown-submenu .dropdown-menu {
-        left: 95% !important; 
+        left: 95% !important; /* Aumentado de 100% a 105% para moverlo más a la derecha */
         top: 0;
         min-width: 180px;
-        margin-left: 5px !important; 
+        margin-left: 5px !important; /* Cambiado de -2px a 5px para separarlo más */
     }
 
     .nav-phrase {
@@ -1192,20 +1221,22 @@ body {
     }
     
     .nav-menu ul {
-        gap: 2px; 
+        gap: 2px; /* Reduce gap entre items del menú */
     }
     
     .nav-menu ul li .link {
-        margin: 0 8px; 
+        margin: 0 8px; /* Reduce margen entre links */
         font-size: 13px;
         padding-bottom: 8px;
     }
     
+    /* Ajusta el contenedor de búsqueda si lo tienes */
     .nav-search-container {
         width: 200px;
         margin: 5px 15px;
     }
     
+    /* Ajusta dropdowns */
     .dropdown-menu {
         min-width: 160px;
     }
@@ -1220,7 +1251,6 @@ body {
     }
     
 }
-
 
 
 
