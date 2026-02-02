@@ -1,12 +1,5 @@
 const path = require('path');
 require('dotenv').config({ path: '../.env' });
-const allowedOrigins = [
-  'http://localhost:5500',
-  'http://127.0.0.1:5500',
-  'http://localhost:5501',
-  'http://127.0.0.1:5501',
-  process.env.ADMIN_FRONTEND_URL
-].filter(Boolean);
 const express = require('express');
 const cloudinary = require('cloudinary').v2;
 const cors = require('cors');
@@ -14,8 +7,8 @@ const rateLimit = require('express-rate-limit');
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getAuth } = require('firebase-admin/auth');
 const fs = require('fs');
-const serviceAccountPath = path.resolve(__dirname, '..', process.env.FIREBASE_SERVICE_ACCOUNT);
-const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'));
+const serviceAccount = JSON.parse(process.env.FIREBASE_KEY_JSON);
+
 
 initializeApp({
   credential: cert(serviceAccount)
@@ -44,34 +37,32 @@ requiredEnvVars.forEach(variable => {
   }
 });
 
-const dynamicCors = (req, callback) => {
-  const origin = req.header('Origin');
+const allowedOrigins = process.env.ADMIN_FRONTEND_URL.split(',').map(o => o.trim());
 
+const dynamicCors = (req, callback) => {
   let corsOptions;
 
-  if (
-    req.path.startsWith('/api/firebase-client-config') ||
-    req.path.startsWith('/health')
-  ) {
-    corsOptions = {
-      origin: true,
+  if (req.path.startsWith('/api/firebase-client-config') || req.path.startsWith('/health')) {
+    corsOptions = { 
+      origin: true, 
       methods: ['GET', 'OPTIONS'],
       optionsSuccessStatus: 200
     };
   } else {
-    if (!origin || allowedOrigins.includes(origin)) {
-      corsOptions = {
-        origin: origin || false,
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
-        credentials: true,
-        optionsSuccessStatus: 200
-      };
-    } else {
-      corsOptions = { origin: false };
-    }
+    corsOptions = {
+      origin: (origin, cb) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+          cb(null, true);
+        } else {
+          cb(new Error('No permitido por CORS'));
+        }
+      },
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+      credentials: true,
+      optionsSuccessStatus: 200
+    };
   }
-
   callback(null, corsOptions);
 };
 
@@ -150,22 +141,35 @@ const verificarAdmin = async (req, res, next) => {
 };
 
 app.get('/api/firebase-client-config', (req, res) => {
-  try {
-    const config = {
-      apiKey: process.env.FIREBASE_PUBLIC_API_KEY.trim(),
-      authDomain: process.env.FIREBASE_AUTH_DOMAIN.trim(),
-      projectId: process.env.FIREBASE_PROJECT_ID.trim(),
-      storageBucket: process.env.FIREBASE_STORAGE_BUCKET || '',
-      messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || '',
-      appId: process.env.FIREBASE_APP_ID.trim()
-    };
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    
+    try {
+        const config = {
+            apiKey: process.env.FIREBASE_PUBLIC_API_KEY?.trim() || (() => { throw new Error('FIREBASE_PUBLIC_API_KEY no configurada') })(),
+            authDomain: process.env.FIREBASE_AUTH_DOMAIN?.trim() || (() => { throw new Error('FIREBASE_AUTH_DOMAIN no configurada') })(),
+            projectId: process.env.FIREBASE_PROJECT_ID?.trim() || (() => { throw new Error('FIREBASE_PROJECT_ID no configurada') })(),
+            storageBucket: process.env.FIREBASE_STORAGE_BUCKET?.trim() || '',
+            messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID?.trim() || '',
+            appId: process.env.FIREBASE_APP_ID?.trim() || (() => { throw new Error('FIREBASE_APP_ID no configurada') })()
+        };
 
-    res.json(config);
-  } catch (error) {
-    res.status(500).json({ error: 'Error de configuración' });
-  }
+        if (process.env.NODE_ENV === 'production') {
+            res.set('Cache-Control', 'public, max-age=3600');
+        }
+        
+        res.json(config);
+        
+    } catch (error) {
+        console.error('Error en configuración Firebase:', error);
+        res.status(500).json({ 
+            success: false,
+            error: 'Error de configuración',
+            details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
+    }
 });
-
 
 app.get('/api/cloudinary-config', verificarAdmin, (req, res) => {
   console.log('Solicitud recibida en /api/cloudinary-config'); 
