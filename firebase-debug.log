@@ -1,0 +1,31 @@
+[debug] [2026-02-02T15:50:21.636Z] ----------------------------------------------------------------------
+[debug] [2026-02-02T15:50:21.638Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Tomy\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-02-02T15:50:21.639Z] CLI Version:   15.5.1
+[debug] [2026-02-02T15:50:21.639Z] Platform:      win32
+[debug] [2026-02-02T15:50:21.639Z] Node Version:  v22.14.0
+[debug] [2026-02-02T15:50:21.639Z] Time:          Mon Feb 02 2026 12:50:21 GMT-0300 (hora estándar de Argentina)
+[debug] [2026-02-02T15:50:21.639Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-02-02T15:50:22.993Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-02T15:50:22.993Z] > authorizing via signed-in user (approxs2@gmail.com)
+[debug] [2026-02-02T15:50:22.993Z] [iam] checking project pagina-web--pyp for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-02-02T15:50:22.994Z] Checked if tokens are valid: true, expires at: 1770048327507
+[debug] [2026-02-02T15:50:22.994Z] Checked if tokens are valid: true, expires at: 1770048327507
+[debug] [2026-02-02T15:50:22.995Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/pagina-web--pyp:testIamPermissions [none]
+[debug] [2026-02-02T15:50:22.995Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/pagina-web--pyp:testIamPermissions  x-goog-user-project=pagina-web--pyp
+[debug] [2026-02-02T15:50:22.995Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/pagina-web--pyp:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-02-02T15:50:23.922Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/pagina-web--pyp:testIamPermissions 200
+[debug] [2026-02-02T15:50:23.922Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/pagina-web--pyp:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-02-02T15:50:23.922Z] Checked if tokens are valid: true, expires at: 1770048327507
+[debug] [2026-02-02T15:50:23.922Z] Checked if tokens are valid: true, expires at: 1770048327507
+[debug] [2026-02-02T15:50:23.922Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/pagina-web--pyp [none]
+[debug] [2026-02-02T15:50:24.302Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/pagina-web--pyp 200
+[debug] [2026-02-02T15:50:24.302Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/pagina-web--pyp {"projectId":"pagina-web--pyp","projectNumber":"799732645620","displayName":"Pagina Web- PYP","name":"projects/pagina-web--pyp","resources":{"hostingSite":"pagina-web--pyp"},"state":"ACTIVE","etag":"1_5c3599ff-9226-4a30-bc0d-7b9b32b931a8"}
+[info] 
+[info] === Deploying to 'pagina-web--pyp'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2026-02-02T15:50:24.305Z] Checked if tokens are valid: true, expires at: 1770048327507
+[debug] [2026-02-02T15:50:24.305Z] Checked if tokens are valid: true, expires at: 1770048327507
+[debug] [2026-02-02T15:50:24.305Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pagina-web--pyp/versions [none]
+[debug] [2026-02-02T15:50:24.305Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pagina-web--pyp/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
