@@ -1,5 +1,5 @@
-import { app } from '../../../../firebase/firebase-config.js';
-import { auth, onAuthStateChanged, signOut } from '../../../../firebase/firebase-auth.js';
+import { app } from '../../../firebase/firebase-config.js';
+import { auth, onAuthStateChanged, signOut } from '../../../firebase/firebase-auth.js';
 import { 
   getFirestore, 
   collection, 
@@ -18,11 +18,6 @@ const mensaje = document.getElementById('mensaje');
 const listaLibros = document.getElementById('lista-libros');
 const nombreArchivo = document.getElementById('nombre-archivo');
 const btnGuardar = document.querySelector('#libro-form button[type="submit"]');
-const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-const backendBaseUrl = isLocalhost
-  ? 'http://localhost:3001'
-  : 'https://patriaypalabras-backend.onrender.com';  // reemplazá con tu URL real en Render
-
 let libroEditando = null;
 
 let cloudinaryWidget;
@@ -40,7 +35,9 @@ async function initializeCloudinary() {
     }
     
     const token = await user.getIdToken();
-    const apiUrl = `${backendBaseUrl}/api/cloudinary-config`;
+    const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? 'http://localhost:3001/api/cloudinary-config'
+      : '/api/cloudinary-config';
 
     console.log('Solicitando configuración a:', apiUrl); 
     
@@ -154,7 +151,12 @@ async function eliminarImagen(index) {
     }
 
     const token = await getAuthToken();
-    const apiUrl = `${backendBaseUrl}/api/eliminar-imagenes`;
+    const isLocalhost = window.location.hostname === 'localhost' || 
+                       window.location.hostname === '127.0.0.1';
+    
+    const apiUrl = isLocalhost
+      ? 'http://localhost:3001/api/eliminar-imagenes'
+      : '/api/eliminar-imagenes';
 
     console.log('Enviando solicitud a:', apiUrl); 
     
@@ -210,7 +212,12 @@ async function asignarRolAdmin() {
     if (!user) return;
 
     const token = await user.getIdToken();
-    const apiUrl = `${backendBaseUrl}/api/assign-admin`;
+    const isLocalhost = window.location.hostname === 'localhost' || 
+                       window.location.hostname === '127.0.0.1';
+    
+    const apiUrl = isLocalhost
+      ? 'http://localhost:3001/api/assign-admin'
+      : '/api/assign-admin';
 
     console.log('Enviando petición a:', apiUrl);
     
@@ -242,10 +249,14 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   try {
-    console.log('Usuario autenticado:', user.email);
     const token = await user.getIdToken();
     
-    const apiUrl = `${backendBaseUrl}/api/verify-admin`;
+    const isLocalhost = window.location.hostname === 'localhost' || 
+                   window.location.hostname === '127.0.0.1';
+
+    const apiUrl = isLocalhost
+      ? 'http://localhost:3001/api/verify-admin'
+      : '/api/verify-admin';
     
     console.log('Verificando admin en:', apiUrl);
     const response = await fetch(apiUrl, {
@@ -268,7 +279,6 @@ onAuthStateChanged(auth, async (user) => {
     console.log('Datos de verificación:', data);
     
     if (data.isAdmin) {
-      console.log('Usuario es admin, redirigiendo a admin.html');
       if (window.location.pathname !== '/admin-panel/panel/admin.html') {
         window.location.href = "../panel/admin.html";
       }
@@ -334,11 +344,16 @@ async function cargarLibros() {
       return;
     }
     
-    todosLosLibros = querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data(),
-      fecha: doc.data().fecha?.toDate() || new Date()
-    }));
+    todosLosLibros = querySnapshot.docs.map(doc => {
+      const data = doc.data();  // 
+      return {
+        id: doc.id,
+        ...data,
+        fecha: data.fecha?.toDate() || new Date(),
+        titulo_norm: data.titulo_norm || normalizarTexto(data.titulo),
+        autor_norm: data.autor_norm || normalizarTexto(data.autor)
+      };
+    })
     
     aplicarFiltros();
     actualizarOpcionesCategorias();
@@ -352,7 +367,10 @@ function aplicarFiltros() {
   const searchTerm = document.getElementById('search-input')?.value.toLowerCase() || '';
   const categoriaSeleccionada = document.getElementById('filtro-categoria')?.value || '';
   const ordenSeleccionado = document.getElementById('filtro-orden')?.value || 'reciente';
-  
+  const hayBusquedaOFiltro =
+    searchTerm !== '' ||
+    categoriaSeleccionada !== '';
+
   librosFiltrados = todosLosLibros.filter(libro => {
     const matchesSearch = 
       libro.titulo.toLowerCase().includes(searchTerm) || 
@@ -379,7 +397,11 @@ function aplicarFiltros() {
       librosFiltrados.sort((a, b) => b.precio - a.precio);
       break;
   }
-  
+
+  if (!hayBusquedaOFiltro) {
+    librosFiltrados = librosFiltrados.slice(0, 10);
+  }
+
   mostrarLibrosFiltrados();
 }
 
@@ -469,15 +491,17 @@ function mostrarLibrosFiltrados() {
 }
 
 function transformarURLImagen(url, thumbnail = false) {
+  if (!url) return '';
+
   if (url.includes('/upload/')) {
-    return thumbnail 
+    return thumbnail
       ? url.replace('/upload/', '/upload/w_100,h_100,c_fill/')
       : url.replace('/upload/', '/upload/w_500,h_500,c_fill/');
   }
-  return thumbnail 
-    ? `${url}?tr=w-100,h-100,c-fill`
-    : `${url}?tr=w-500,h-500,c-fill`;
+
+  return url;
 }
+
 
 window.mostrarImagen = function(element, fullImageUrl) {
   const mainImage = element.closest('.libro-carousel').querySelector('.main-image img');
@@ -546,7 +570,7 @@ window.eliminarLibro = async function(id) {
     ].filter(Boolean);
 
     if (publicIds.length > 0) {
-      const response = await fetch(`${backendBaseUrl}/api/eliminar-imagenes`, {
+      const response = await fetch('http://localhost:3001/api/eliminar-imagenes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -558,7 +582,7 @@ window.eliminarLibro = async function(id) {
       if (!response.ok) throw new Error('Error al eliminar imágenes');
     }
 
-    const deleteResponse = await fetch(`${backendBaseUrl}/api/eliminar-libro`, {
+    const deleteResponse = await fetch('http://localhost:3001/api/eliminar-libro', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -620,6 +644,26 @@ window.editarLibro = async function(id) {
   }
 }
 
+function normalizarTexto(texto) {
+  return texto
+    .toLowerCase()
+    .normalize('NFD')                 
+    .replace(/[\u0300-\u036f]/g, '')  
+    .replace(/\s+/g, ' ')             
+    .trim();
+}
+
+
+function existeLibroDuplicado(titulo, idExcluido = null) {
+  const tituloNorm = normalizarTexto(titulo);
+
+  return todosLosLibros.some(libro => {
+    if (idExcluido && libro.id === idExcluido) return false;
+    
+    return libro.titulo_norm === tituloNorm;
+  });
+}
+
 libroForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   mostrarMensaje('warning', 'Procesando...');
@@ -629,9 +673,13 @@ libroForm.addEventListener('submit', async (event) => {
       throw new Error("Debes subir al menos una imagen");
     }
     const db = getFirestore(app);
+    const titulo = libroForm.titulo.value;
+    const autor = libroForm.autor.value;
     const libroData = {
-      titulo: libroForm.titulo.value,
-      autor: libroForm.autor.value,
+      titulo,
+      autor,
+      titulo_norm: normalizarTexto(titulo),
+      autor_norm: normalizarTexto(autor),
       estado: libroForm.estado.value,
       categoria: libroForm.categoria.value,
       precio: parseFloat(libroForm.precio.value),
@@ -641,24 +689,44 @@ libroForm.addEventListener('submit', async (event) => {
       imagen_url: imagenesURLs[0],
       imagen_public_id: imagenesPublicIds[0],
     };
-
-  
-
+    
     if (libroEditando) {
+      const duplicado = existeLibroDuplicado(
+        libroData.titulo,
+        libroEditando
+      );
+      
+      if (duplicado) {
+        mostrarMensaje('error', 'Ya existe otro libro con ese título');
+        return;
+      }
+
       const docRef = doc(db, "libros", libroEditando);
       const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        libroData.fecha = docSnap.data().fecha;
-      } else {
-        libroData.fecha = new Date(); 
-      }
+
+      libroData.fecha = docSnap.exists()
+        ? docSnap.data().fecha
+        : new Date();
+
       await updateDoc(docRef, libroData);
       mostrarMensaje('success', '¡Libro actualizado correctamente!');
     } else {
       libroData.fecha = new Date();
+
+      const duplicado = existeLibroDuplicado(
+        libroData.titulo,
+        null  
+      );
+
+      if (duplicado) {
+        mostrarMensaje('error', 'Ya existe un libro con el mismo título y autor');
+        return;
+      }
+
       await setDoc(doc(db, "libros", crypto.randomUUID()), libroData);
       mostrarMensaje('success', '¡Libro registrado correctamente!');
     }
+
 
     libroForm.reset();
     document.getElementById('preview-container').innerHTML = '';
@@ -681,7 +749,6 @@ libroForm.addEventListener('reset', () => {
   imagenesPublicIds = [];
   libroEditando = null;
   btnGuardar.innerHTML = '<i class="fas fa-save"></i> Guardar Libro';
-  mostrarMensaje('warning', 'Formulario limpiado');
 });
 
 document.addEventListener('DOMContentLoaded', () => {

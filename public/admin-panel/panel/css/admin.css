@@ -350,28 +350,52 @@ button:hover {
 }
 
 .alert {
-  padding: 1rem;
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  padding: 1.5rem 2rem;
   border-radius: var(--radius);
-  margin-bottom: 1.5rem;
   display: none;
+  min-width: 320px;
+  max-width: 500px;
+  text-align: center;
+  font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }
 
 .alert-success {
-  background-color: rgba(11, 176, 123, 0.1);
+  background-color: rgba(11, 176, 123, 0.95);
   border-left: 4px solid var(--success);
-  color: var(--success);
+  color: white;
+  border: 2px solid var(--success);
 }
 
 .alert-error {
-  background-color: rgba(247, 37, 133, 0.1);
+  background-color: rgba(247, 37, 133, 0.95);
   border-left: 4px solid var(--danger);
-  color: var(--danger);
+  color: white;
+  border: 2px solid var(--danger);
 }
 
 .alert-warning {
-  background-color: rgba(249, 199, 79, 0.1);
+  background-color: rgba(249, 199, 79, 0.95);
   border-left: 4px solid var(--warning);
-  color: #e09600;
+  color: #5a4a00;
+  border: 2px solid var(--warning);
 }
 
 .libro-grid {
