@@ -339,7 +339,7 @@ body {
         z-index: 1000;
         background: #88b988;
         backdrop-filter: blur(5px);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);   /*#c71ab3;*/
         padding: 0;
         height: auto;
     }
@@ -638,15 +638,15 @@ body {
 @media (max-width: 360px) {
     .nav {
         padding: 8px 0px;
-        gap: -8px; 
+        gap: -8px; /* Reduce el espacio entre elementos del nav */
     }
     
     .nav-logo {
-        gap: 8px; 
+        gap: 8px; /* Reduce gap entre logo y otros elementos */
     }
     
     .nav-logo img {
-        height: 100px; 
+        height: 100px; /* Logo más pequeño */
     }
     
     .nav-center-phrase {
@@ -659,15 +659,15 @@ body {
         font-size: 18px !important;
         vertical-align: middle !important;
         position: relative !important;
-        top: -1px !important; 
+        top: -1px !important; /* Cambiado de -23px a -18px (baja más la flecha) */
         margin-left: -3px !important;
         display: inline-block !important;
     }
 
     .dropdown-menu {
         min-width: 180px;
-        left: -10px !important; 
-        margin-top: -10px !important; 
+        left: -10px !important; /* Mueve más a la IZQUIERDA (aumenta el valor negativo para más izquierda) */
+        margin-top: -10px !important; /* Mueve MÁS ABAJO (aumenta para bajar más) */
         transform: none;
         margin-left: 0;
     }
@@ -679,10 +679,10 @@ body {
     
     /* Para submenús también */
     .dropdown-submenu .dropdown-menu {
-        left: 97% !important; 
+        left: 97% !important; /* Aumentado de 100% a 105% para moverlo más a la derecha */
         top: 0;
         min-width: 180px;
-        margin-left: 5px !important; 
+        margin-left: 5px !important; /* Cambiado de -2px a 5px para separarlo más */
     }
 
     .nav-phrase {
@@ -692,20 +692,22 @@ body {
     }
 
     .nav-menu ul {
-        gap: 2px; 
+        gap: 2px; /* Reduce gap entre items del menú */
     }
     
     .nav-menu ul li .link {
-        margin: 0 8px; 
+        margin: 0 8px; /* Reduce margen entre links */
         font-size: 13px;
         padding-bottom: 8px;
     }
     
+    /* Ajusta el contenedor de búsqueda si lo tienes */
     .nav-search-container {
         width: 200px;
         margin: 5px 15px;
     }
     
+    /* Ajusta dropdowns */
     .dropdown-menu {
         min-width: 160px;
     }
@@ -715,6 +717,5 @@ body {
         font-size: 12px;
     }
 }
-
 
 
