@@ -625,7 +625,6 @@ button:hover {
   }
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .libro-body {
     flex-direction: column;
