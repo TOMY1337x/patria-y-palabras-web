@@ -11,6 +11,12 @@ import {
   setDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+const API_BASE_URL =
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:3001'
+    : 'https://patriaypalabras-backend.onrender.com';
+
 const libroForm = document.getElementById('libro-form');
 const btnSubirImagen = document.getElementById('btn-subir-imagen');
 const previewImage = document.getElementById('preview-image');
@@ -35,9 +41,7 @@ async function initializeCloudinary() {
     }
     
     const token = await user.getIdToken();
-    const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-      ? 'http://localhost:3001/api/cloudinary-config'
-      : '/api/cloudinary-config';
+    const apiUrl = `${API_BASE_URL}/api/cloudinary-config`;
 
     console.log('Solicitando configuración a:', apiUrl); 
     
@@ -154,9 +158,7 @@ async function eliminarImagen(index) {
     const isLocalhost = window.location.hostname === 'localhost' || 
                        window.location.hostname === '127.0.0.1';
     
-    const apiUrl = isLocalhost
-      ? 'http://localhost:3001/api/eliminar-imagenes'
-      : '/api/eliminar-imagenes';
+    const apiUrl = `${API_BASE_URL}/api/eliminar-imagenes`;
 
     console.log('Enviando solicitud a:', apiUrl); 
     
@@ -215,9 +217,7 @@ async function asignarRolAdmin() {
     const isLocalhost = window.location.hostname === 'localhost' || 
                        window.location.hostname === '127.0.0.1';
     
-    const apiUrl = isLocalhost
-      ? 'http://localhost:3001/api/assign-admin'
-      : '/api/assign-admin';
+    const apiUrl = `${API_BASE_URL}/api/assign-admin`;
 
     console.log('Enviando petición a:', apiUrl);
     
@@ -243,62 +243,55 @@ async function asignarRolAdmin() {
 
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
-    console.log('Redirigiendo a login - No hay usuario');
+    console.log('No hay usuario, redirigiendo a login');
     window.location.href = "../login/login.html";
     return;
   }
 
   try {
-    const token = await user.getIdToken();
-    
-    const isLocalhost = window.location.hostname === 'localhost' || 
-                   window.location.hostname === '127.0.0.1';
+    const token = await user.getIdToken(true);
 
-    const apiUrl = isLocalhost
-      ? 'http://localhost:3001/api/verify-admin'
-      : '/api/verify-admin';
-    
-    console.log('Verificando admin en:', apiUrl);
-    const response = await fetch(apiUrl, {
-      headers: { 
+    const response = await fetch(`${API_BASE_URL}/api/verify-admin`, {
+      headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       }
     });
 
-    console.log('Respuesta del servidor:', response.status, response.statusText);
-    
     if (!response.ok) {
-      console.error('Error en la verificación de admin. Estado:', response.status);
+      console.error('Error verificando admin:', response.status);
+      mostrarMensaje(
+        'error',
+        'No se pudo verificar el acceso. Intenta nuevamente.'
+      );
+      return; 
+    }
+
+    const data = await response.json();
+
+    if (!data.isAdmin) {
+      console.log('Usuario sin permisos admin');
       await signOut(auth);
       window.location.href = "../login/login.html";
       return;
     }
 
-    const data = await response.json();
-    console.log('Datos de verificación:', data);
-    
-    if (data.isAdmin) {
-      if (window.location.pathname !== '/admin-panel/panel/admin.html') {
-        window.location.href = "../panel/admin.html";
-      }
-      
-      if (data.shouldAssignRole) {
-        console.log('Asignando rol admin...');
-        await asignarRolAdmin();
-      }
-    } else {
-      console.log('Usuario no es admin, cerrando sesión');
-      await signOut(auth);
-      window.location.href = "../login/login.html";
+    console.log('Admin verificado correctamente');
+
+    if (data.shouldAssignRole) {
+      await asignarRolAdmin();
     }
-    
+
   } catch (error) {
-    console.error('Error verificando admin:', error);
-    await signOut(auth);
-    window.location.href = "../login/login.html";
+    console.error('Error de red verificando admin:', error);
+    mostrarMensaje(
+      'error',
+      'Error de conexión con el servidor'
+    );
+
   }
 });
+
 
 document.getElementById('logout-btn').addEventListener('click', async () => {
   try {
@@ -570,7 +563,7 @@ window.eliminarLibro = async function(id) {
     ].filter(Boolean);
 
     if (publicIds.length > 0) {
-      const response = await fetch('http://localhost:3001/api/eliminar-imagenes', {
+      const response = await fetch(`${API_BASE_URL}/api/eliminar-imagenes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -582,7 +575,7 @@ window.eliminarLibro = async function(id) {
       if (!response.ok) throw new Error('Error al eliminar imágenes');
     }
 
-    const deleteResponse = await fetch('http://localhost:3001/api/eliminar-libro', {
+    const deleteResponse = await fetch(`${API_BASE_URL}/api/eliminar-libro`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
