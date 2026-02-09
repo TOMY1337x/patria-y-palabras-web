@@ -385,15 +385,16 @@ body {
 
 @media (max-width: 768px) {
 
-    html,
-    body {
-        overflow-y: auto;
+    html, body {
         height: auto;
+        overflow-y: auto;
     }
 
     body {
-        padding-top: 130px; 
+        display: block;
+        padding-top: 170px;
     }
+
     .nav-wrapper {
         padding: 20px 16px -20px; 
     }
@@ -412,9 +413,13 @@ body {
     }
 
     .nav-menu ul li .link {
-        font-size: 22px;
-        margin: 0 25px;
-       
+        font-size: 16px;     
+        margin: 0;           
+        padding: 6px 4px;   
+    }
+
+    .nav-menu ul li .link::after {
+        bottom: 4px;  
     }
 
     .nav-phrase {
@@ -434,8 +439,52 @@ body {
         margin-top: 10px;
         text-align: center;
     }
- 
+
+    .dropdown-menu {
+        min-width: 160px;
+        left: -10px;        
+        top: 160%;          
+        margin-top: 0;
+    }
+
+    .box {
+        width: 100%;
+        min-height: auto;
+        padding: 2.5rem 1.5rem;
+        text-align: center;
+    }
+
+
+    .box1,
+    .box5 {
+        padding: 0;                 
+        min-height: 240px;          
+        background-size: 40% auto; 
+        background-position: center;
+    }
+
+    .box2,
+    .box3,
+    .box4 {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .box2 h2,
+    .box3 h2,
+    .box4 h2 {
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .box2 p,
+    .box3 p,
+    .box4 p {
+        font-size: 15px;
+        line-height: 1.6;
+        max-width: 92%;
+    }
 }
+
 
 @media (max-width: 576px) {
 
@@ -443,10 +492,13 @@ body {
         padding: 20px 16px -20px; 
     }
 
+    .nav-menu ul {
+        gap: 12px;
+    }
+
     .nav-menu ul li .link {
-        margin: 8px;          
-        padding: 5px 8px;
-        font-size: 20px;
+        font-size: 15px;
+        padding: 5px 2px;
         white-space: nowrap;
     }
 
@@ -454,6 +506,18 @@ body {
         font-size: 21px;
         line-height: 1.2;
         margin-top: 7px;
+    }
+
+    .box1,
+    .box5 {
+        min-height: 200px;
+        background-size: 45% auto;
+    }
+
+    .box2 p,
+    .box3 p,
+    .box4 p {
+        font-size: 14px;
     }
     
 }
