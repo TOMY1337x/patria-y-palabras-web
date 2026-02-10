@@ -1200,8 +1200,8 @@ body {
     }
 
     .categoria-container {
-        grid-template-columns: repeat(2, minmax(0, 0.85fr)); 
-        margin-left: -20px; 
+        grid-template-columns: repeat(2, minmax(0, 0.95fr)); 
+        margin-left: 5px; 
     }
 
     .categoria-item {
