@@ -1075,23 +1075,16 @@ body {
     }
 
     .nav-center-phrase {
-        width: 100%;
-        margin: 10px 0 10px;
-        margin-left:0%;
-        padding: 0 10px;
-        font-size: 1.7rem;
-        text-align: center;
-        position: static;
-        transform: none;
-        color: white;
+        align-self: flex-start;   
+        margin-left: 50px;
     }
 
     .nav-right-container {
         display: flex;          
         flex-direction: column;
-        align-items: flex-start; 
-        align-items: center;   
-        gap: 12px;              
+        align-items: center;
+        gap: 12px;  
+        padding-left: 40px;            
     }
 
     .nav-phrase {
@@ -1099,12 +1092,13 @@ body {
         font-size: 13px;          
         text-align: center;       
         margin-left: 0;          
-        transform: translateX(-25%);
+        transform: none;
+        margin-left: -20px;
     }
 
     .search-container {
         order: 2; 
-        margin-left: -20px;   
+        margin-left: 0 auto;     
         margin-right: auto;
         top: 20px;
         width:250px;          
@@ -1206,21 +1200,57 @@ body {
     }
 
     .categoria-container {
-        grid-template-columns: repeat(2, 1fr);
-        margin-left: -10px;
-        margin-top: 2rem;
+        grid-template-columns: repeat(2, minmax(0, 0.85fr)); 
+        margin-left: -20px; 
+    }
+
+    .categoria-item {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow: hidden; 
+    }
+
+    .categoria-item > * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .categoria-item h3 {
+        white-space: normal;          
+        overflow: visible;           
+        text-overflow: unset;         
+        word-break: break-word;       
+        overflow-wrap: break-word;    
+        line-height: 1.2;
+        text-align: center;
+    }
+
+    .libros-categorias h2 {
+        margin-bottom: 30px; 
+    }
+
+    .libros-miniatura {
+        width: 100%;
+        max-width: 100%;
+        display: block;     
+        padding: 8px;
     }
 
     .titulo-categoria {
-        padding-right: 65px;
+        padding-left: 10px;  
+        padding-right: 0;
+        text-align:center;
     }
 
     #libros-container.libros-grid {
         display: grid;
-        grid-template-columns: repeat(2, calc((100% - (25px * 2) - 25px) / 2));
-        gap: 25px;
-        padding: 0 25px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        padding: 0 13px;
+        padding-left: 10px; 
         width: 100%;
+        align-items: start;
         box-sizing: border-box;
     }
 
@@ -1232,10 +1262,14 @@ body {
         overflow: hidden;
         box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         transition: all 0.3s ease;
-        height: auto;
+        height: auto;     
+        align-self: start;
+        padding-bottom: 10px;
         max-width: 100%;
-        width: 80%;
+        width: 100%;
         box-sizing: border-box;
+        padding: 16px;
+        gap: 8px;
     }
 
     .libro-imagenes-container {
@@ -1252,22 +1286,31 @@ body {
     }
 
     .libro-info {
-        padding: 6px;
-        flex-grow: 1;
+        padding: 10px 12px;
+        gap: 6px; 
+        flex-grow: 0;
+        justify-content: flex-start;
         display: flex;
         flex-direction: column;
     }
 
+    .descripcion {
+        overflow: hidden;
+        flex-grow: 0;      
+        min-height: auto; 
+        margin-bottom: 4px;  
+    }
+
     .libro h3 {
         font-size: 13px;
-        margin-bottom: 4px;
+        margin-bottom: 6px;
         line-height: 1.2;
         font-weight: 600;
     }
 
     .libro p {
         font-size: 11px;
-        margin-bottom: 2px;
+        margin-bottom: 4px;
         line-height: 1.3;
         color: #666;
     }
@@ -1316,13 +1359,6 @@ body {
         cursor: pointer;
     }
     
-    .libros-miniatura {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem;
-        min-height: 100px;
-        padding: 8px;
-    }
     
     .carousel-slide img {
         max-height: 50vh;
@@ -1395,9 +1431,7 @@ body {
 
     .zoom-lens, .zoom-preview {
         display: none;
-    }
-
-    
+    } 
     
 }
 
