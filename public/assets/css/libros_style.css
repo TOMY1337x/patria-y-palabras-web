@@ -1096,10 +1096,10 @@ body {
 
     .nav-phrase {
         order:1;
-        font-size: 14px;          
+        font-size: 13px;          
         text-align: center;       
         margin-left: 0;          
-        transform: translateX(-19%);
+        transform: translateX(-25%);
     }
 
     .search-container {
@@ -1162,7 +1162,7 @@ body {
 
     .dropdown-menu {
         min-width: 100px;
-        left: -20px; /* negativo = más a la izquierda */
+        left: -20px; 
         margin-left: 0;
         padding: 8px 0;
         transform: none;
@@ -1429,7 +1429,7 @@ body {
     }
 
     .nav-phrase {
-        font-size: 14px;     /* un poco más pequeño */
+        font-size: 13px;    
     }
 
     .categoria-container {

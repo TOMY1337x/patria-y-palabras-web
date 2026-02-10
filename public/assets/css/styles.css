@@ -975,7 +975,7 @@ body {
     }
 
     .nav-phrase {
-        font-size: clamp(14px, 3vw, 20px); 
+        font-size: clamp(13px, 3vw, 20px); 
         line-height: 1.2;
         margin-top: 0.5rem;
         display: inline-block;  
@@ -1098,8 +1098,6 @@ body {
         padding: 0 14px;
         font-size: 15px;       
     }
-
-
 }
 
 @media (max-width: 576px) {
