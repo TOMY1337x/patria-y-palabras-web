@@ -387,7 +387,8 @@ body {
 
     html, body {
         height: auto;
-        overflow-y: auto;
+        overflow-x: hidden;
+        overflow-y: visible;
     }
 
     body {
@@ -441,10 +442,13 @@ body {
     }
 
     .dropdown-menu {
-        min-width: 160px;
-        left: -10px;        
-        top: 160%;          
+        position: absolute;
+        max-height: 90svh;      
+        top: calc(100% + 6px);         
         margin-top: 0;
+        width: 180px;
+        min-width: unset;
+        max-width: 90vw;
     }
 
     .box {
