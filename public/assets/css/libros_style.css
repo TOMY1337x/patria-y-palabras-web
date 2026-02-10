@@ -934,13 +934,12 @@ body {
 @media (max-width: 1400px) {
  
   .nav-center-phrase {
-        left: 47%; /* antes era 50% */
+        left: 45%; 
         transform: translateX(-50%);
     }
 
     .nav-phrase {
-        font-size: 13px;
-       
+        font-size: 13px;  
     }
 
     .nav-menu ul li .link {
@@ -949,6 +948,7 @@ body {
         align-items: center;
         line-height: 1; 
         padding: 6px 0;
+        margin: 0 20px;
     }
 
     .search-container {
