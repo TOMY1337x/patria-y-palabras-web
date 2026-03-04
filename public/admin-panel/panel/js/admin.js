@@ -43,7 +43,7 @@ async function initializeCloudinary() {
     const token = await user.getIdToken();
     const apiUrl = `${API_BASE_URL}/api/cloudinary-config`;
 
-    console.log('Solicitando configuración a:', apiUrl); 
+    console.log('Solicitando configuración al hosting:'); 
     
     const response = await fetch(apiUrl, {
       headers: { 
@@ -61,7 +61,6 @@ async function initializeCloudinary() {
     }
     
     const config = await response.json();
-    console.log('Configuración recibida:', config); 
     
     return cloudinary.createUploadWidget(config, (error, result) => {
       if (error) {
