@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const { db, firestore } = window.firebaseData;
         const { collection, query, getDocs, orderBy, limit } = firestore;
         const librosRef = collection(db, "libros");
-        const q = query(librosRef, orderBy("fecha", "desc"), limit(30));
+        const q = query(librosRef, orderBy("fecha", "desc"), limit(100));
         const querySnapshot = await getDocs(q);
 
         if (querySnapshot.empty) {
