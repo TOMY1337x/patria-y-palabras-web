@@ -148,6 +148,8 @@ body {
     flex-direction: column; 
     margin-top: 15px;
     transition: all 0.3s ease, visibility 0.1s ease 0.2s;
+    column-count: 2; 
+    column-gap: 0; 
 }
 
 .dropdown::after {
@@ -172,7 +174,7 @@ body {
 }
 
 .dropdown:hover .dropdown-menu {
-    display: flex; 
+    display: block;
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -182,6 +184,7 @@ body {
     padding: 0; 
     list-style: none;
     width: 100%; 
+    break-inside: avoid;
 }
 
 .dropdown-menu li a {
