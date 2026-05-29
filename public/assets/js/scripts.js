@@ -79,24 +79,30 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    console.log("script cargado");
     const dropdown = document.querySelector(".dropdown");
     const dropdownToggle = document.querySelector(".dropdown-toggle");
     const dropdownMenu = document.querySelector(".dropdown-menu");
+    console.log("dropdown:", dropdown);
+    console.log("dropdownToggle:", dropdownToggle);
+    console.log("dropdownMenu:", dropdownMenu);
+    dropdownToggle.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        dropdownMenu.classList.toggle("active");
+    });
 
-    if (dropdownToggle && dropdownMenu) {
-        dropdownMenu.classList.remove("active");
+    document.addEventListener("click", (event) => {
+        if (!dropdown.contains(event.target)) {
+            dropdownMenu.classList.remove("active");
+        }
+    });
 
-        dropdownToggle.addEventListener("click", (event) => {
-            event.preventDefault();
-            dropdownMenu.classList.toggle("active");
+    dropdownMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.stopPropagation();
         });
-
-        document.addEventListener("click", (event) => {
-            if (!dropdown.contains(event.target)) {
-                dropdownMenu.classList.remove("active");
-            }
-        });
-    }
+    });
 
     const navLinks = document.querySelectorAll('.nav-menu ul li .link');
 
@@ -110,13 +116,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.addEventListener('click', (event) => {
-        if (!navMenu.contains(event.target) && !menuBtn.contains(event.target) && !dropdown.contains(event.target) && !dropdownToggle.contains(event.target)) {
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-            });
+        if (
+            !navMenu.contains(event.target) && 
+            !menuBtn.contains(event.target) && 
+            !dropdown.contains(event.target)  
+        ) {
+            navLinks.forEach(link => link.classList.remove('active'));
         }
     });
-
     document.addEventListener("DOMContentLoaded", () => {
         const body = document.body;
 
