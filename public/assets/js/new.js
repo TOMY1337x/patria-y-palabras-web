@@ -106,9 +106,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             div.appendChild(categoria);
 
             const precio = document.createElement("p");
-            precio.innerHTML = `<strong>Precio:</strong> $${libro.precio?.toFixed(2) || "N/A"}`;
-            div.appendChild(precio);
 
+            const precioFormateado = libro.precio
+                ? Math.round(libro.precio).toLocaleString('es-AR')
+                : "N/A";
+
+            precio.innerHTML = `<strong>Precio:</strong> $${precioFormateado}`;
+
+            div.appendChild(precio);
             contenedor.appendChild(div);
         });
 

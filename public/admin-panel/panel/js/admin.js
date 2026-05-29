@@ -414,8 +414,8 @@ function mostrarLibrosFiltrados() {
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
 
-    const comision = (libro.precio * 0.6).toFixed(2);
-    const precioFormateado = libro.precio.toFixed(2);
+    const comision = Math.round(libro.precio * 0.6).toLocaleString('es-AR');
+    const precioFormateado = Math.round(libro.precio).toLocaleString('es-AR');
     
     const todasLasImagenes = libro.imagenes_urls || [libro.imagen_url];
     

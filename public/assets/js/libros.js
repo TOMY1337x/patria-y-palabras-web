@@ -190,7 +190,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       div.appendChild(autor);
 
       const precio = document.createElement("p");
-      precio.innerHTML = `<strong>Precio:</strong> $${libro.precio.toFixed(2)}`;
+      precio.innerHTML = `<strong>Precio:</strong> $${formatearPrecio(libro.precio)}`;
       div.appendChild(precio);
 
       const estado = document.createElement("p");
@@ -205,6 +205,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
 
       contenedor.appendChild(div);
+    });
+  }
+
+  function formatearPrecio(precio) {
+    if (precio === undefined || precio === null) return "N/A";
+
+    return Number(precio).toLocaleString('es-AR', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
     });
   }
 
@@ -236,7 +245,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (termino) {
       contenedor.innerHTML = '<div class="loading">Buscando...</div>';
 
-      setTimeout(() => { 
+      setTimeout(() => {
+        
         const autoresExactos = allBooksGlobal
           .filter(libro => normalizarTexto(libro.autor) === termino) 
           .map(libro => libro.autor);
@@ -267,7 +277,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             div.appendChild(categoria);
             
             const precio = document.createElement("p");
-            precio.innerHTML = `<strong>Precio:</strong> $${libro.precio.toFixed(2)}`;
+            precio.innerHTML = `<strong>Precio:</strong> $${formatearPrecio(libro.precio)}`;
             div.appendChild(precio);
             
             contenedor.appendChild(div);
@@ -318,7 +328,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               currentCategory = null;
               window.history.pushState({}, '', window.location.pathname);
               tituloCategoria.textContent = "RESULTADOS DE BÚSQUEDA";
-              buscarLibros(terminoOriginal); 
+              buscarLibros(terminoOriginal); // ← Usar terminoOriginal aquí también
             });
           }
         }
@@ -866,6 +876,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const terminoBusqueda = params.get("busqueda");
     
     if (terminoBusqueda) {
+  
       document.getElementById("search-input").value = terminoBusqueda;
       buscarLibros(terminoBusqueda);
     } else if (categoria) {
