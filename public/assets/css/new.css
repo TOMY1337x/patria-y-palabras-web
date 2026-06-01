@@ -481,9 +481,20 @@ body {
 @media (max-width: 1400px) {
 
     .nav-menu ul li .link {
-        margin: 0 35px;
-        margin-left: 18px;
         font-size: 16px;
+        display: flex;
+        align-items: center;
+        line-height: 1; 
+        padding: 6px 0;
+        margin: 0 4px;  
+    } 
+
+    .nav-menu ul li a::after {
+        bottom: 3px !important; 
+    }
+
+    .nav-menu ul {
+        gap: 22px;      
     }
 
     .nav-phrase{
@@ -501,15 +512,14 @@ body {
         column-gap: 0; 
         column-width: 160px 
         margin-left: -10px;
-        margin-top: 15px;
+        margin-top: 15px; 
         top: 105%; 
     }
 
     .dropdown-menu li a {
-        font-size: 13px;     
+        font-size: 13px;    
         padding: 6px 14px;   
     }
-
 }
 
 

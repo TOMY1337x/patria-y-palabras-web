@@ -952,30 +952,42 @@ body {
 @media (max-width: 1400px) {
  
   .nav-center-phrase {
-        left: 45%; /* antes era 50% */
+        left: 45%; 
         transform: translateX(-50%);
     }
 
     .nav-phrase {
         font-size: 13px; 
+        position: relative;
+        left: 17px; 
+    }
+
+    .nav-menu ul {
+        gap: 22px;      
+    }
+
+    .nav-menu ul li a::after {
+        bottom: 3px !important; 
     }
 
     .nav-menu ul li .link {
-        font-size: 17px;
+        font-size: 16px;
         display: flex;
         align-items: center;
         line-height: 1; 
         padding: 6px 0;
-        margin: 0 20px;
-    }
+        margin: 0 4px;  
+    } 
 
     .search-container {
         width: 200px; 
         transition: all 0.3s ease;
+        position: relative;
+        left: 22px; 
     }
 
     .search-container:focus-within {
-        width: 257px; 
+        width: 235px; 
         transform: translateY(0); 
     }
 
@@ -991,10 +1003,9 @@ body {
     }
 
     .dropdown-menu li a {
-        font-size: 13px;    
+        font-size: 13px;     
         padding: 6px 14px;   
     }
-    
 }
 
 @media (max-width: 1200px) {

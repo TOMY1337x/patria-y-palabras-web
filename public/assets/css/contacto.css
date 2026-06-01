@@ -344,15 +344,51 @@ body {
        margin-left: 150px;
     }
 
+    .recuadro {
+        width: 280px;   
+        height: 230px;  
+        padding: 22px; 
+    }
+
+    .recuadro i {
+        font-size: 42px; 
+        margin-bottom: 12px;
+    }
+
+    .recuadro h3 {
+        font-size: 18px;
+    }
+
+    .recuadro p {
+        font-size: 15px;
+        margin-bottom: 16px;
+    }
+
+    .btn-recuadro {
+        padding: 10px 15px;
+        font-size: 15px;
+    }
+
     .salto-1400 {
         display: block;
     }
 
-    .nav-menu ul li .link {
-        margin: 0 35px;
-        margin-left: 18px;
-        font-size: 16px;
+    .nav-menu ul {
+        gap: 22px;      
     }
+
+    .nav-menu ul li a::after {
+        bottom: 3px !important; 
+    }
+
+    .nav-menu ul li .link {
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        line-height: 1; 
+        padding: 6px 0;
+        margin: 0 4px;  
+    } 
 
     .pyp-log {
         top: 15%; 

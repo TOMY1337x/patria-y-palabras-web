@@ -739,7 +739,7 @@ body {
 @media (max-width: 1400px) {
 
     .nav-menu ul {
-        gap: 22px;       
+        gap: 22px;      
     }
 
     .nav-menu ul li .link {
@@ -766,7 +766,11 @@ body {
 
     .nav-menu {
         position: relative;
-        top: 10px; 
+        top: 7px; 
+    }
+
+    .nav-menu ul li a::after {
+        bottom: 8px; 
     }
 
     .dropdown-menu {
@@ -787,7 +791,7 @@ body {
 
     .dropdown-toggle {
         display: inline-flex;
-        align-items: center;      
+        align-items: center;     
         gap: 4px;
     }
 
@@ -800,9 +804,12 @@ body {
 
     .nav-phrase {
         position: relative;
-        left: -25px;
+        left: -45px;
     }
 
+    .dropdown-menu li a::after {
+        bottom: 4px !important;
+    }
 }
 
 @media (max-width: 1200px) {
